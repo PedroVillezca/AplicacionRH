@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "aplicacionrh",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "D:\\OneDrive\\DocumentosW\\9no Semestre\\Proyecto Integrador\\AplicacionRH\\amplify\\backend\\api\\aplicacionrh\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    }
+  }
+}
