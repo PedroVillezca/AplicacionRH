@@ -1,6 +1,14 @@
+
 <template>
   <ion-app>
-    <authenticator>
+    <authenticator 
+    :login-mechanisms="['username']"
+    :form-fields = "formFields"
+    :sign-up-attributes="[
+    'given_name',
+    'family_name',
+    ]"
+    >
       <template v-slot="{ user, signOut }">
         <h1>Hello {{ user.username }}!</h1>
         <button @click="signOut">Sign Out</button>
@@ -10,6 +18,8 @@
 </template>
 
 <script lang="ts">
+
+
 import { IonApp } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
@@ -28,4 +38,33 @@ export default defineComponent({
     Authenticator
   }
 });
+
+import { I18n } from 'aws-amplify';
+import { translations } from '@aws-amplify/ui-vue';
+I18n.putVocabularies(translations);
+I18n.setLanguage('es');
+
+I18n.putVocabularies({
+  es:{
+    'Sign In': 'Iniciar Sesión',
+    'Create Account': 'Registrarse',
+    'Username': 'BlueTag',
+  }
+});
+I18n.putVocabulariesForLanguage( 'es', {
+  'Given Name': 'Nombre(s)',
+  'Family Name': 'Apellidos',
+});
+
+const formFields = {
+  signUp: {
+  given_name: {
+    // placeholder: 'Enter name',
+    order: 2
+  },
+  family_name: {
+    order: 1
+  }
+  },
+}
 </script>
