@@ -1,8 +1,30 @@
+
 ion-app{
+    /*color fondo */
     background-color: var(--ion-color-secondary);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    /*vertical-align: middle;*/
 }
 
 .amplify-button[data-variation='primary'] {
+    /* boton iniciar sesion*/
     background: var(--ion-color-primary);
+    /* letra boton iniciar sesion */
     color: var(--ion-color-tertiary);
   }
+
+.amplify-button:hover[data-variation='primary'] {
+    background: var(--ion-color-secondary);
+    color: var(--ion-color-tertiary);
+  }
+
+/*
+.amplify-grid[data-variation='primary'] {
+    height: 100%;
+}
+.amplify-row[data-variation='primary'] {
+    height: 100%;
+}
+*/

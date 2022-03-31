@@ -3,11 +3,14 @@
   <ion-app>
     <authenticator 
     :login-mechanisms="['email']"
-    :form-fields = "formFields"
+    :form-fields="formFields"
     :sign-up-attributes="[
     'username',
     'given_name',
     'family_name',
+    ]"
+    :sign-up-fields="[
+    {label: 'username', order: 4}
     ]"
     >
       <template v-slot="{ user, signOut }">
@@ -44,7 +47,6 @@ import { I18n } from 'aws-amplify';
 import { translations } from '@aws-amplify/ui-vue';
 I18n.putVocabularies(translations);
 I18n.setLanguage('es');
-
 I18n.putVocabularies({
   es:{
     'Sign In': 'Iniciar Sesión',
@@ -57,15 +59,5 @@ I18n.putVocabulariesForLanguage( 'es', {
   'Family Name': 'Apellidos',
 });
 
-const formFields = {
-  signUp: {
-  given_name: {
-    // placeholder: 'Enter name',
-    order: 2
-  },
-  family_name: {
-    order: 1
-  }
-  },
-}
 </script>
+
