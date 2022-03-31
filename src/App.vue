@@ -2,9 +2,10 @@
 <template>
   <ion-app>
     <authenticator 
-    :login-mechanisms="['username']"
+    :login-mechanisms="['email']"
     :form-fields = "formFields"
     :sign-up-attributes="[
+    'username',
     'given_name',
     'family_name',
     ]"
@@ -52,7 +53,7 @@ I18n.putVocabularies({
   }
 });
 I18n.putVocabulariesForLanguage( 'es', {
-  'Given Name': 'Nombre(s)',
+  'Given Name': 'Nombre (s)',
   'Family Name': 'Apellidos',
 });
 
