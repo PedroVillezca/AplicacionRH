@@ -1,20 +1,11 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Blank</ion-title>
-      </ion-toolbar>
-    </ion-header>
     
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
-    
+      <app-header></app-header>
+
       <div id="container">
-        <strong>Ready to create an app?</strong>
+        <p>{{ user.username }}</p>
         <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
       </div>
     </ion-content>
@@ -22,17 +13,31 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonContent, IonPage  } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import AppHeader from '../components/Header.vue';
+import { Auth } from 'aws-amplify';
 
 export default defineComponent({
   name: 'HomePage',
   components: {
     IonContent,
-    IonHeader,
     IonPage,
-    IonTitle,
-    IonToolbar
+    AppHeader
+  },
+  data () {
+    return {
+      user: {username: null, attributes: null}
+    }
+  },
+  methods: {
+    getAuthenticatedUser: async () => {
+      var user = await Auth.currentAuthenticatedUser()
+      return {username: user.username, attributes: user.attributes}
+    }
+  },
+  async created() {
+    this.user = await this.getAuthenticatedUser()
   }
 });
 </script>
