@@ -2,8 +2,6 @@
   <ion-page>
     
     <ion-content :fullscreen="true">
-      <app-header></app-header>
-
       <div id="container">
         <p>{{ user.username }}</p>
         <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
@@ -15,15 +13,13 @@
 <script lang="ts">
 import { IonContent, IonPage  } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import AppHeader from '../components/Header.vue';
 import { Auth } from 'aws-amplify';
 
 export default defineComponent({
   name: 'HomePage',
   components: {
     IonContent,
-    IonPage,
-    AppHeader
+    IonPage
   },
   data () {
     return {

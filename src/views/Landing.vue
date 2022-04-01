@@ -6,15 +6,14 @@
             :sign-up-attributes="[
             'username',
             'given_name',
-            'family_name',
+            'family_name'
             ]"
             :sign-up-fields="[
             {label: 'username', order: 4}
             ]"
         >
-            
-            <home-page></home-page>
-
+            <app-header></app-header>
+            <ion-router-outlet />
         </authenticator>
     </ion-page>
 </template>
@@ -23,18 +22,19 @@
     import { I18n } from 'aws-amplify';
     import { defineComponent } from 'vue';
     import { Authenticator, translations } from "@aws-amplify/ui-vue";
-    import { IonPage } from '@ionic/vue';
+    import { IonPage, IonRouterOutlet } from '@ionic/vue';
 
     import "@aws-amplify/ui-vue/styles.css";
-    import HomePage from './HomePage.vue';
+    import AppHeader from '../components/Header.vue';
 
 
     export default defineComponent({
     name: 'LandingPage',
     components: {
         Authenticator,
-        HomePage,
-        IonPage    
+        AppHeader,
+        IonPage,
+        IonRouterOutlet    
     },
     data () {
         return {

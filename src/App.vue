@@ -1,7 +1,7 @@
 
 <template>
   <ion-app>
-    <landing-page></landing-page>
+      <landing-page></landing-page>
   </ion-app>
 </template>
 
