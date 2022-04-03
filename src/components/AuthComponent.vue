@@ -1,14 +1,12 @@
 <template>
-  <authenticator 
+    <authenticator 
         :login-mechanisms="['username']"
-        :form-fields="formFields"
         :sign-up-attributes="[
         'username',
+        'email',
         'given_name',
-        'family_name'
-        ]"
-        :sign-up-fields="[
-        {label: 'username', order: 4}
+        'family_name',
+        'birthdate'
         ]"
     >
         <app-header></app-header>
@@ -23,7 +21,7 @@ import { IonRouterOutlet } from '@ionic/vue';
 
 import "@aws-amplify/ui-vue/styles.css";
 import AppHeader from '../components/Header.vue';
-    
+
 export default {
     name: 'AuthComponent',
     components: {
@@ -40,6 +38,7 @@ es:{
     'Sign In': 'Iniciar Sesión',
     'Create Account': 'Registrarse',
     'Username': 'BlueTag',
+    'Birthdate': 'Fecha de Nacimiento'
 }
 });
 I18n.putVocabulariesForLanguage( 'es', {
