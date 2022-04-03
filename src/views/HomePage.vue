@@ -36,6 +36,7 @@ export default defineComponent({
     this.user = await this.getAuthenticatedUser()
   }
 });
+
 </script>
 
 <style scoped>

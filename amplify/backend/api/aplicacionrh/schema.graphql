@@ -3,8 +3,8 @@
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 type User @model {
-  blueTag: ID!
+  blueTag: ID! @primaryKey
   name: String!
   birthday: AWSDate!
-  devices: [String!]!
+  devices: [String]
 }
