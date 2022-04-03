@@ -1,6 +1,11 @@
 {
-	"appId": "io.ionic.starter",
+	"appId": "com.bluepeople.aplicacionrh",
 	"appName": "AplicacionRH",
 	"webDir": "dist",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"plugins": {
+		"PushNotifications": {
+			"presentationOptions": ["badge",  "sound", "alert"]
+		}
+	}
 }
