@@ -3,8 +3,9 @@
     
     <ion-content :fullscreen="true">
       <div id="container">
-        <p>{{ user.username }}</p>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+        <ion-text>
+          <h1 id="welcome-text"> Hi, {{user.attributes.given_name}}! </h1>
+        </ion-text>
       </div>
     </ion-content>
   </ion-page>
@@ -40,14 +41,18 @@ export default defineComponent({
 </script>
 
 <style scoped>
+/*ion-page{
+  background-color: #19478C;
+}*/
 #container {
   text-align: center;
-  
-  position: absolute;
-  left: 0;
+  display: flex;
+  position:absolute;
+  top: 23%;
+  left: 2%;
   right: 0;
-  top: 50%;
   transform: translateY(-50%);
+  /*background-color:#25305F;*/
 }
 
 #container strong {
@@ -55,16 +60,9 @@ export default defineComponent({
   line-height: 26px;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+#welcome-text{
+  color:#ffff;
+  justify-content: flex-start;
+  position:absolute;
 }
 </style>
