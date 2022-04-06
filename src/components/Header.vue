@@ -1,14 +1,14 @@
 <template>
   <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>BluePeople BirthDay</ion-title>
-        <ion-button @click="signOut">Sign Out</ion-button>
+      <ion-toolbar color="light">
+            <img class="logo_bar" src="../assets/bluepeople-logo.png" style="display:inline-block"/>
+            <ion-button class="so_btn" fill="clear" slot="end"  @click="signOut">Sign Out</ion-button>
       </ion-toolbar>
     </ion-header>
 </template>
 
 <script>
-import { IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/vue';
+import { IonHeader, IonToolbar, IonButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Auth } from 'aws-amplify';
 
@@ -17,9 +17,8 @@ export default defineComponent({
     name: 'AppHeader',
     components: {
         IonHeader,
-        IonTitle,
         IonToolbar,
-        IonButton
+        IonButton,
     },
     methods: {
         signOut: async () => {

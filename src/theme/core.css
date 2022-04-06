@@ -3,7 +3,7 @@
 
 ion-app{
     /*color fondo */
-    background-color: var(--ion-color-secondary);
+    background-color: #25305F;
     align-items: center;
     display: flex;
     justify-content: center;
@@ -52,3 +52,21 @@ amplify-authenticator {
     height: 100%;
 }
 */
+
+/*header */
+
+ion-header{
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+ion-toolbar{
+  width: 100%;
+}
+.logo_bar{
+  padding-left: 30px;
+}
+.so_btn{
+  color: var(--ion-color-primary);
+}
