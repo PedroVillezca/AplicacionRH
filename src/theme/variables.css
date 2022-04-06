@@ -5,7 +5,7 @@ http://ionicframework.com/docs/theming/ */
 :root {
 
   /** primary azul rey Bluepeople **/
-  --ion-color-primary: #333366;
+  --ion-color-primary: #25305F;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -13,7 +13,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-primary-tint: #4c8dff;
 
   /** secondary azul BluePeople **/
-  --ion-color-secondary: #6666cc;
+  --ion-color-secondary: #19478C;
   --ion-color-secondary-rgb: 61, 194, 255;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
@@ -75,6 +75,9 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+ 
+  --amplify-container-height: 1500px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -235,5 +238,6 @@ http://ionicframework.com/docs/theming/ */
 
     --ion-card-background: #1e1e1e;
   }
+  
   
 }
