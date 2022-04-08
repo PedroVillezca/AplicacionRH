@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonPage  } from '@ionic/vue';
+import { IonContent, IonPage, IonText  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Auth } from 'aws-amplify';
 
@@ -20,11 +20,12 @@ export default defineComponent({
   name: 'HomePage',
   components: {
     IonContent,
-    IonPage
+    IonPage,
+    IonText
   },
   data () {
     return {
-      user: {username: null, attributes: null}
+      user: {username: '', attributes: {birthdate:'', email:'', family_name:'', given_name:''}}
     }
   },
   methods: {
