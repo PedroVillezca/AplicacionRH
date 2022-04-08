@@ -4,7 +4,7 @@
     <ion-content :fullscreen="true">
       <div id="container">
         <ion-text>
-          <h1 id="welcome-text"> Hi, {{user.attributes.given_name}}! </h1>
+          <h1 id="welcome-text"> Hola, {{user.attributes.given_name}}! </h1>
         </ion-text>
       </div>
     </ion-content>
@@ -42,9 +42,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/*ion-page{
-  background-color: #19478C;
-}*/
+
 #container {
   text-align: center;
   display: flex;
@@ -53,7 +51,6 @@ export default defineComponent({
   left: 2%;
   right: 0;
   transform: translateY(-50%);
-  /*background-color:#25305F;*/
 }
 
 #container strong {
