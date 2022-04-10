@@ -8,7 +8,6 @@ export const onCreateUser = /* GraphQL */ `
       name
       birthday
       devices
-      id
       createdAt
       updatedAt
     }
@@ -21,7 +20,6 @@ export const onUpdateUser = /* GraphQL */ `
       name
       birthday
       devices
-      id
       createdAt
       updatedAt
     }
@@ -34,7 +32,6 @@ export const onDeleteUser = /* GraphQL */ `
       name
       birthday
       devices
-      id
       createdAt
       updatedAt
     }
