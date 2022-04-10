@@ -2,13 +2,12 @@
 // this is an auto generated file. This will be overwritten
 
 export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
+  query GetUser($blueTag: ID!) {
+    getUser(blueTag: $blueTag) {
       blueTag
       name
       birthday
       devices
-      id
       createdAt
       updatedAt
     }
@@ -16,17 +15,24 @@ export const getUser = /* GraphQL */ `
 `;
 export const listUsers = /* GraphQL */ `
   query ListUsers(
+    $blueTag: ID
     $filter: ModelUserFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listUsers(
+      blueTag: $blueTag
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         blueTag
         name
         birthday
         devices
-        id
         createdAt
         updatedAt
       }
