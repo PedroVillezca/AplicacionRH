@@ -3,15 +3,21 @@
     
     <ion-content :fullscreen="true">
       <div id="container">
+<<<<<<< HEAD
         <p>{{ user.username }}</p>
         <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+=======
+        <ion-text>
+          <h1 id="welcome-text"> Hola, {{user.attributes.given_name}}! </h1>
+        </ion-text>
+>>>>>>> 49d6bce7c27f46112090a97b7e235df86110cf22
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonPage  } from '@ionic/vue';
+import { IonContent, IonPage, IonText  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Auth } from 'aws-amplify';
 
@@ -19,11 +25,12 @@ export default defineComponent({
   name: 'HomePage',
   components: {
     IonContent,
-    IonPage
+    IonPage,
+    IonText
   },
   data () {
     return {
-      user: {username: null, attributes: null}
+      user: {username: '', attributes: {birthdate:'', email:'', family_name:'', given_name:''}}
     }
   },
   methods: {
@@ -40,6 +47,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 49d6bce7c27f46112090a97b7e235df86110cf22
 #container {
   text-align: center;
   
