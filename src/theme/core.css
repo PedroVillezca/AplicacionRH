@@ -3,7 +3,7 @@
 
 ion-app{
     /*color fondo */
-    background-color: #25305F;
+    background-color: var(--ion-color-secondary);
     align-items: center;
     display: flex;
     justify-content: center;
@@ -19,18 +19,6 @@ ion-content{
   font-family: 'Montserrat';
   --container-height: 100vh;
 }
-.auth{
-  /* margin: 0 auto;
-  width: 460px;
-  height: 1400px; */
-}
-
-/* #authenticator {
-  --container-height: 100vh;
-}
-amplify-authenticator {
-  --container-height: 100vh;
-} */
 
 .amplify-button[data-variation='primary'] {
     /* boton iniciar sesion*/
@@ -52,21 +40,3 @@ amplify-authenticator {
     height: 100%;
 }
 */
-
-/*header */
-
-ion-header{
-  background-color: black;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-ion-toolbar{
-  width: 100%;
-}
-.logo_bar{
-  padding-left: 30px;
-}
-.so_btn{
-  color: var(--ion-color-primary);
-}
