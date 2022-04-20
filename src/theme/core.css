@@ -1,0 +1,48 @@
+
+ion-app{
+    /*color fondo */
+    background-color: #25305F;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    /*vertical-align: middle;*/
+}
+
+.amplify-button[data-variation='primary'] {
+    /* boton iniciar sesion*/
+    background: var(--ion-color-primary);
+    /* letra boton iniciar sesion */
+    color: var(--ion-color-tertiary);
+  }
+
+.amplify-button:hover[data-variation='primary'] {
+    background: var(--ion-color-secondary);
+    color: var(--ion-color-tertiary);
+  }
+
+/*
+.amplify-grid[data-variation='primary'] {
+    height: 100%;
+}
+.amplify-row[data-variation='primary'] {
+    height: 100%;
+}
+*/
+
+/*header */
+
+ion-header{
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+ion-toolbar{
+  width: 100%;
+}
+.logo_bar{
+  padding-left: 30px;
+}
+.so_btn{
+  color: var(--ion-color-primary);
+}

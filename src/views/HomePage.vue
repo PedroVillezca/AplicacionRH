@@ -1,54 +1,55 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Blank</ion-title>
-      </ion-toolbar>
-    </ion-header>
     
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
-    
       <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+        <ion-text>
+          <h1 id="welcome-text"> Hola, {{user.attributes.given_name}}! </h1>
+        </ion-text>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonContent, IonPage, IonText  } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import {notificationInitialSetup} from '../services/pushNotifications'
+import { Auth } from 'aws-amplify';
+
 export default defineComponent({
   name: 'HomePage',
   components: {
     IonContent,
-    IonHeader,
     IonPage,
-    IonTitle,
-    IonToolbar
+    IonText
   },
-  created() {
-    console.log('Initializing HomePage');
-    notificationInitialSetup()
+  data () {
+    return {
+      user: {username: '', attributes: {birthdate:'', email:'', family_name:'', given_name:''}}
+    }
+  },
+  methods: {
+    getAuthenticatedUser: async () => {
+      var user = await Auth.currentAuthenticatedUser()
+      return {username: user.username, attributes: user.attributes}
+    }
+  },
+  async created() {
+    this.user = await this.getAuthenticatedUser()
   }
 });
+
 </script>
 
 <style scoped>
+
 #container {
   text-align: center;
-  
-  position: absolute;
-  left: 0;
+  display: flex;
+  position:absolute;
+  top: 23%;
+  left: 2%;
   right: 0;
-  top: 50%;
   transform: translateY(-50%);
 }
 
@@ -57,16 +58,9 @@ export default defineComponent({
   line-height: 26px;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+#welcome-text{
+  color:#ffff;
+  justify-content: flex-start;
+  position:absolute;
 }
 </style>
