@@ -41,5 +41,13 @@
         ]
       }
     }
+  },
+  "function": {
+    "birthday": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
+    }
   }
 }
