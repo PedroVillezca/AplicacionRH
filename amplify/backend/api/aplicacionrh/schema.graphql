@@ -6,5 +6,9 @@ type User @model {
   blueTag: ID! @primaryKey
   name: String!
   birthday: AWSDate!
-  devices: [String]
+  email: String!
+}
+
+type Query {
+  getUserByEmail(email: String!): User
 }

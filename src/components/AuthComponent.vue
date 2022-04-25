@@ -21,6 +21,7 @@ import { Authenticator, translations } from "@aws-amplify/ui-vue";
 import { IonRouterOutlet } from '@ionic/vue';
 
 import "@aws-amplify/ui-vue/styles.css";
+import { getUserByEmail } from '../graphql/queries'
 import { createUser } from '../graphql/mutations'
 import AppHeader from '../components/Header.vue';
 
@@ -62,9 +63,14 @@ const services = {
           blueTag: username,
           name: `${attributes.given_name} ${attributes.family_name}`,
           birthday: attributes.birthdate,
-          devices: ["dummy"] 
+          email: attributes.email
       }
 
+      await API.graphql({query: getUserByEmail, variables: {email: newUser.email}})
+      .then((result) => {
+          console.log(result)
+      })
+      
       return API.graphql({query: createUser, variables: {input: newUser}})
       .then(() => {
           return Auth.signUp({
@@ -81,8 +87,10 @@ const services = {
               throw "Error desconocido."
           }
       });
+      
     },
   };
+ 
 </script>
 
 

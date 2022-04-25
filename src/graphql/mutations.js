@@ -10,7 +10,7 @@ export const createUser = /* GraphQL */ `
       blueTag
       name
       birthday
-      devices
+      email
       createdAt
       updatedAt
     }
@@ -25,7 +25,7 @@ export const updateUser = /* GraphQL */ `
       blueTag
       name
       birthday
-      devices
+      email
       createdAt
       updatedAt
     }
@@ -40,7 +40,7 @@ export const deleteUser = /* GraphQL */ `
       blueTag
       name
       birthday
-      devices
+      email
       createdAt
       updatedAt
     }
