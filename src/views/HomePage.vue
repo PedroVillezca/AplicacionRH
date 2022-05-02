@@ -3,21 +3,22 @@
     
     <ion-content :fullscreen="true">
       <div id="container">
-<<<<<<< HEAD
-        <p>{{ user.username }}</p>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-=======
-        <ion-text>
-          <h1 id="welcome-text"> Hola, {{user.attributes.given_name}}! </h1>
-        </ion-text>
->>>>>>> 49d6bce7c27f46112090a97b7e235df86110cf22
+        <h1 id="welcome-text"> Hola, {{user.attributes.given_name}}! </h1>
       </div>
     </ion-content>
+    <ion-footer class="footer-border">
+    <ion-toolbar>
+      <ion-title>Footer - No Border</ion-title>
+      <ion-button color="clear" class="settings_icon">
+        <img class="settings" src="../assets/settings-icon.png"/>
+      </ion-button>
+    </ion-toolbar>
+  </ion-footer>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonPage, IonText  } from '@ionic/vue';
+import { IonContent, IonPage, IonFooter } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Auth } from 'aws-amplify';
 
@@ -26,7 +27,7 @@ export default defineComponent({
   components: {
     IonContent,
     IonPage,
-    IonText
+    IonFooter
   },
   data () {
     return {
@@ -47,10 +48,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-=======
-
->>>>>>> 49d6bce7c27f46112090a97b7e235df86110cf22
+ion-content{
+  --background: var(--ion-color-tertiary);
+}
 #container {
   text-align: center;
   
@@ -59,17 +59,21 @@ export default defineComponent({
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+  background-color: white;
 }
-
+#welcome-text {
+  color:black;
+}
 #container strong {
   font-size: 20px;
   line-height: 26px;
 }
 
 #container p {
+  display: flex;
   font-size: 16px;
   line-height: 22px;
-  
+  flex-direction: column;
   color: #8c8c8c;
   
   margin: 0;
@@ -77,5 +81,8 @@ export default defineComponent({
 
 #container a {
   text-decoration: none;
+}
+.footer-border{
+  background-color: black;
 }
 </style>
