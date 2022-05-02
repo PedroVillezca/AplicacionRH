@@ -3,7 +3,13 @@
     
     <ion-content :fullscreen="true">
       <div id="container">
+<<<<<<< HEAD
         <h1 id="welcome-text"> Hola, {{user.attributes.given_name}}! </h1>
+=======
+        <ion-text>
+          <h1 id="welcome-text"> Hola, {{user.attributes.given_name}}! </h1>
+        </ion-text>
+>>>>>>> fe_authentication
       </div>
     </ion-content>
     <ion-footer class="footer-border">
@@ -48,9 +54,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 ion-content{
   --background: var(--ion-color-tertiary);
 }
+=======
+>>>>>>> fe_authentication
 #container {
   text-align: center;
   

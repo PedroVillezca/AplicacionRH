@@ -6,9 +6,13 @@ type User @model {
   blueTag: ID! @primaryKey
   name: String!
   birthday: AWSDate!
+<<<<<<< HEAD
   email: String! @index(name: "getUserByEmail")
   receiveNotifications: Boolean!
   sendNotifications: Boolean!
+=======
+  email: String! @index(name: "email-index")
+>>>>>>> fe_authentication
 }
 
 type Query {
