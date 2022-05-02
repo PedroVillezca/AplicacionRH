@@ -3,14 +3,9 @@
     
     <ion-content :fullscreen="true">
       <div id="container">
-<<<<<<< HEAD
-        <p>{{ user.username }}</p>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-=======
         <ion-text>
           <h1 id="welcome-text"> Hola, {{user.attributes.given_name}}! </h1>
         </ion-text>
->>>>>>> 49d6bce7c27f46112090a97b7e235df86110cf22
       </div>
     </ion-content>
   </ion-page>
@@ -47,10 +42,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-=======
-
->>>>>>> 49d6bce7c27f46112090a97b7e235df86110cf22
 #container {
   text-align: center;
   
