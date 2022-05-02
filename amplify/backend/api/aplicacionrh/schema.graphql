@@ -5,7 +5,9 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 type User @model {
   blueTag: ID! @primaryKey
   name: String!
-  birthday: AWSDate!
+  birthDay: Int!
+  birthMonth: Int!
+  birthYear: Int!
   email: String! @index(name: "getUserByEmail")
   receiveNotifications: Boolean!
   sendNotifications: Boolean!

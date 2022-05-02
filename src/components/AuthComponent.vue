@@ -61,9 +61,14 @@ const services = {
       const newUser = {
           blueTag: username,
           name: `${attributes.given_name} ${attributes.family_name}`,
-          birthday: attributes.birthdate,
-          devices: ["dummy"] 
+          birthDay: parseInt(attributes.birthdate.substring(8, 10)),
+          birthMonth: parseInt(attributes.birthdate.substring(5, 7)),
+          birthYear: parseInt(attributes.birthdate.substring(0, 4)),
+          email: attributes.email,
+          receiveNotifications: true,
+          sendNotifications: true
       }
+
       await API.graphql({query: createUser, variables: {input: newUser}})
       
       return Auth.signUp({

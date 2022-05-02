@@ -1,13 +1,33 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getUserByEmail = /* GraphQL */ `
+  query GetUserByEmail($email: String!) {
+    getUserByEmail(email: $email) {
+      blueTag
+      name
+      birthDay
+      birthMonth
+      birthYear
+      email
+      receiveNotifications
+      sendNotifications
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const getUser = /* GraphQL */ `
   query GetUser($blueTag: ID!) {
     getUser(blueTag: $blueTag) {
       blueTag
       name
-      birthday
-      devices
+      birthDay
+      birthMonth
+      birthYear
+      email
+      receiveNotifications
+      sendNotifications
       createdAt
       updatedAt
     }
@@ -31,8 +51,12 @@ export const listUsers = /* GraphQL */ `
       items {
         blueTag
         name
-        birthday
-        devices
+        birthDay
+        birthMonth
+        birthYear
+        email
+        receiveNotifications
+        sendNotifications
         createdAt
         updatedAt
       }

@@ -6,8 +6,12 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser {
       blueTag
       name
-      birthday
-      devices
+      birthDay
+      birthMonth
+      birthYear
+      email
+      receiveNotifications
+      sendNotifications
       createdAt
       updatedAt
     }
@@ -18,8 +22,12 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser {
       blueTag
       name
-      birthday
-      devices
+      birthDay
+      birthMonth
+      birthYear
+      email
+      receiveNotifications
+      sendNotifications
       createdAt
       updatedAt
     }
@@ -30,8 +38,12 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser {
       blueTag
       name
-      birthday
-      devices
+      birthDay
+      birthMonth
+      birthYear
+      email
+      receiveNotifications
+      sendNotifications
       createdAt
       updatedAt
     }
