@@ -9,15 +9,49 @@ Amplify Params - DO NOT EDIT */
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
+
+const AWS = require('aws-sdk')
+const docClient = new AWS.DynamoDB.DocumentClient()
+
+const today = new Date()
+const params = {
+    TableName: 'User-hl6vsyf54zdgbl5pfiu7uwrpp4-dev',
+    IndexName: 'birthday-index',
+    ScanFilter: {
+        'birthDay': {
+            ComparisonOperator: 'EQ',
+            AttributeValueList: [today.getDate()]
+        },
+        'birthMonth': {
+            ComparisonOperator: 'EQ',
+            AttributeValueList: [today.getMonth() + 1]
+        }
+    }
+}
+
+async function getUsers() {
+    try {
+        const users = await docClient.scan(params).promise()
+        return users
+    } catch (error) {
+        return error
+    }
+}
+
 exports.handler = async (event) => {
-    console.log(`EVENT: ${JSON.stringify(event)}`);
-    return {
-        statusCode: 200,
-    //  Uncomment below to enable CORS requests
-    //  headers: {
-    //      "Access-Control-Allow-Origin": "*",
-    //      "Access-Control-Allow-Headers": "*"
-    //  }, 
-        body: JSON.stringify('Hello from Lambda!'),
-    };
+    try {
+        const users = await getUsers()
+        
+        users.Items.forEach((user) => {
+            if (user.sendNotifications) {
+                // Send notification for this user to SNS
+            }
+        })
+        return {
+            statusCode: 200,
+            body: JSON.stringify(users)
+        }
+    } catch (error) {
+        return {error: error}
+    }
 };
