@@ -21,6 +21,12 @@
           "webClientId": "1rmjv537ddrknspm2d3h7gh0cs",
           "nativeClientId": "1rmjv537ddrknspm2d3h7gh0cs"
         }
+      },
+      "function": {
+        "birthday": {
+          "deploymentBucketName": "amplify-aplicacionrh-dev-173254-deployment",
+          "s3Key": "amplify-builds/birthday-706c7964732b4a317a62-build.zip"
+        }
       }
     }
   }
