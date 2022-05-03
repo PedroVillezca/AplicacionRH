@@ -21,6 +21,7 @@ import { Authenticator, translations } from "@aws-amplify/ui-vue";
 import { IonRouterOutlet } from '@ionic/vue';
 
 import "@aws-amplify/ui-vue/styles.css";
+import { getUserByEmail } from '../graphql/queries'
 import { createUser } from '../graphql/mutations'
 import AppHeader from '../components/Header.vue';
 
@@ -69,6 +70,12 @@ const services = {
           sendNotifications: true
       }
 
+      
+      var duplicateEmails = await API.graphql({query: getUserByEmail, variables: {email: newUser.email}})
+      if (duplicateEmails.data.getUserByEmail.items.length >= 1) {
+          throw "El correo ya está en uso."
+      }
+
       await API.graphql({query: createUser, variables: {input: newUser}})
       
       return Auth.signUp({
@@ -79,5 +86,3 @@ const services = {
     },
   };
 </script>
-
-
