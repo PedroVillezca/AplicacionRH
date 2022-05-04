@@ -10,32 +10,44 @@
         </div>
         <ion-item class="line"></ion-item>
         <div id="personal-info">
+          <!-- NOMBES, APELLIDOS Y FECHA DE NACIMIENTO -->
           <h1>Información Personal</h1>
+          <ion-text>
+            <h4>Nombre(s):</h4>
+          <ion-input v-model="names" placeholder="Guillermo Enrique"></ion-input>
+          <h4>Apellidos:</h4>
+          <ion-input v-model="lastnames" placeholder="Valles Villegas"></ion-input>
+          <h4>Fecha de nacimiento:</h4>
+          <div id="birthdate">
+          <ion-input v-model="day" placeholder="DD" type="text" maxlength="2"></ion-input>/
+          <ion-input v-model="month" placeholder="MM" type="text" maxlength="2"></ion-input>/
+          <ion-input v-model="year" placeholder="YYYY" type="text" maxlength="4"></ion-input>
+          </div>
+          </ion-text>
           
-          <ion-text>Fecha de nacimiento:</ion-text>
-          <ion-datetime value="1999-08-18T13:47:20.789"></ion-datetime>
         </div>
-
+        <!-- PREFERENCIAS -->
         <div id ="preferences">
           <h1>Preferencias</h1>
           <div class="pref-options">
           <ion-text>Permitir a otros conocer mi cumpleaños</ion-text>
-          <ion-toggle></ion-toggle>
+          <ion-toggle v-model = "myBD"></ion-toggle>
           </div>
           <div class="pref-options">
             <ion-text>Permitir saber el cumpleaños de otros</ion-text>
-            <ion-toggle></ion-toggle>
+            <ion-toggle v-model = "othersBD"></ion-toggle>
           </div>
         </div>
-        <ion-button id="bttn-save">Guardar Cambios</ion-button>
+        <ion-button id="bttn-save" @click="saveInfo">Guardar Cambios</ion-button>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonPage, IonText, IonToggle, IonIcon, IonButton  } from '@ionic/vue';
+import { IonContent, IonPage, IonText, IonToggle, IonIcon, IonButton, IonInput  } from '@ionic/vue';
 import { defineComponent } from 'vue';
+// import { arrow-back } from "ionicons/icons";
 
 export default defineComponent({
   name: 'ConfigurationPage',
@@ -43,13 +55,50 @@ export default defineComponent({
     IonContent,
     IonPage,
     IonText,
-    IonToggle
+    IonToggle,
+    IonIcon,
+    IonInput,
+    IonButton
   },
+  data(){
+    return{
+      names:"",
+      lastnames:"",
+      day:"",
+      month:"",
+      year:"",
+      myBD: true,
+      othersBD: true
+    };
+  },
+  methods:{
+    // FUNCION PARA GUARDAR LOS DATOS CON EL BOTON DE GUARDAR
+    saveInfo(){
+      var dia = parseInt(this.day);
+      var mes = parseInt(this.month);
+      var anio = parseInt(this.year);
+
+      if(this.names == ""){
+        this.names = "Guillermo Enrique"
+      }
+      if(this.lastnames == ""){
+        this.lastnames = "Valles Villegas"
+      }
+      if(dia > 31 || dia <1 || mes < 1 || mes >12 || anio < 1950){
+        alert("Verificar la fecha")
+      }else{
+        // AQUI VA CON LO DE LA BASE DE DATOS
+      console.log(this.names, this.lastnames, this.day, this.month, this.year, this.myBD, this.othersBD);
+      }
+    },
+    
+  }
 });
 
 </script>
 
 <style scoped>
+
 .line{
   border: 0;
   height: 5px;
@@ -57,7 +106,15 @@ export default defineComponent({
   margin-right: 5%;
   margin-bottom: 40px;
 }
-
+#birthdate{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+#calendario{
+  margin-top: 5%;
+  margin-left: 15%;  
+}
 #bttn-save {
   margin-top: 70px;
   margin-bottom: 70px;
@@ -85,7 +142,12 @@ export default defineComponent({
   font-size: 50px;
 }
 
-#personal-info {
+#personal-info h4 {
+    margin-left: 20px;
+}
+ion-input {
+  margin-left: 20px;
+  font-family: 'Montserrat';
 
 }
 
