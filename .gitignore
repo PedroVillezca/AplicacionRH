@@ -50,3 +50,6 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+
+src/services/sns-config.js
