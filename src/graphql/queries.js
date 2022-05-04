@@ -5,9 +5,14 @@ export const getUser = /* GraphQL */ `
   query GetUser($blueTag: ID!) {
     getUser(blueTag: $blueTag) {
       blueTag
-      name
-      birthday
-      devices
+      firstName
+      lastName
+      birthDay
+      birthMonth
+      birthYear
+      email
+      receiveNotifications
+      sendNotifications
       createdAt
       updatedAt
     }
@@ -30,9 +35,46 @@ export const listUsers = /* GraphQL */ `
     ) {
       items {
         blueTag
-        name
-        birthday
-        devices
+        firstName
+        lastName
+        birthDay
+        birthMonth
+        birthYear
+        email
+        receiveNotifications
+        sendNotifications
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserByEmail = /* GraphQL */ `
+  query GetUserByEmail(
+    $email: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getUserByEmail(
+      email: $email
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        blueTag
+        firstName
+        lastName
+        birthDay
+        birthMonth
+        birthYear
+        email
+        receiveNotifications
+        sendNotifications
         createdAt
         updatedAt
       }
