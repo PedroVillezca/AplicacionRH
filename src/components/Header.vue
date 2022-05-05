@@ -1,8 +1,8 @@
 <template>
-  <ion-header :translucent="true">
-      <ion-toolbar color="light">
+  <ion-header>
+      <ion-toolbar class="header" color="#333366">
             <img class="logo_bar" src="../assets/bluepeople-logo.png" style="display:inline-block"/>
-            <ion-button class="so_btn" fill="clear" slot="end"  @click="signOut">Sign Out</ion-button>
+            <ion-button class="so_btn" color="white" fill="clear" slot="end"  @click="signOut">Cerrar Sesión</ion-button>
       </ion-toolbar>
     </ion-header>
 </template>
@@ -32,3 +32,11 @@ export default defineComponent({
 });
 
 </script>
+<style scoped>
+.logo_bar{
+    margin-left: 20px;
+}
+.so_btn{
+    color: white;
+}
+</style>

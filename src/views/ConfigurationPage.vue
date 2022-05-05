@@ -3,7 +3,7 @@
     <ion-content :scroll-events="true">
       <div id="container">
         <div id="conf-title">
-          <ion-button>
+          <ion-button router-link="/home">
           <ion-icon name="arrow-back"></ion-icon>
           </ion-button>
           Configuración
@@ -166,6 +166,7 @@ export default defineComponent({
   font-size: 50px;
 }
 
+
 #personal-info h4 {
     margin-left: 20px;
 }
@@ -174,7 +175,6 @@ ion-input {
   font-family: 'Montserrat';
 
 }
-
 #container {
   position: absolute;
   left: 20px;

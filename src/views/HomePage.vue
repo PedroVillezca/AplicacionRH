@@ -1,18 +1,27 @@
 <template>
   <ion-page>
     
-    <ion-content :fullscreen="true">
+    <ion-content :scroll-events="true">
       <div id="container">
-        <ion-text>
-          <h1 id="welcome-text"> Hola, {{user.attributes.given_name}}! </h1>
-        </ion-text>
+        <h1 id="welcome-text"> Hola, {{user.attributes.given_name}}! </h1>
       </div>
     </ion-content>
+
+    <div id="ft">
+      <ion-footer>
+        <ion-toolbar class="footer">
+          <ion-button class="set_btn" slot="end" router-link="/configuration">
+              Configuraciones
+          </ion-button>
+        </ion-toolbar>
+      </ion-footer>
+    </div>
   </ion-page>
 </template>
 
+
 <script lang="ts">
-import { IonContent, IonPage, IonText  } from '@ionic/vue';
+import { IonContent, IonPage, IonFooter, IonButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Auth } from 'aws-amplify';
 
@@ -21,7 +30,8 @@ export default defineComponent({
   components: {
     IonContent,
     IonPage,
-    IonText
+    IonFooter,
+    IonButton
   },
   data () {
     return {
@@ -42,25 +52,35 @@ export default defineComponent({
 </script>
 
 <style scoped>
+ion-content{
+  --background: var(--ion-color-tertiary);
+}
 #container {
   text-align: center;
   
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
+  top: 25%;
   transform: translateY(-50%);
+  display: flexbox;
+  flex-direction: column;
 }
-
+#welcome-text {
+  color:black;
+  margin-top: 0px;
+  margin-right: 80%;
+}
 #container strong {
   font-size: 20px;
   line-height: 26px;
 }
 
 #container p {
+  display: flex;
   font-size: 16px;
   line-height: 22px;
-  
+  flex-direction: column;
   color: #8c8c8c;
   
   margin: 0;
@@ -68,5 +88,9 @@ export default defineComponent({
 
 #container a {
   text-decoration: none;
+}
+
+.set_btn{
+  margin-right: 20px;
 }
 </style>
