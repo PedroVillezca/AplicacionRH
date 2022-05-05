@@ -8,9 +8,14 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       blueTag
-      name
-      birthday
-      devices
+      firstName
+      lastName
+      birthDay
+      birthMonth
+      birthYear
+      email
+      receiveNotifications
+      sendNotifications
       createdAt
       updatedAt
     }
@@ -23,9 +28,14 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       blueTag
-      name
-      birthday
-      devices
+      firstName
+      lastName
+      birthDay
+      birthMonth
+      birthYear
+      email
+      receiveNotifications
+      sendNotifications
       createdAt
       updatedAt
     }
@@ -38,9 +48,14 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       blueTag
-      name
-      birthday
-      devices
+      firstName
+      lastName
+      birthDay
+      birthMonth
+      birthYear
+      email
+      receiveNotifications
+      sendNotifications
       createdAt
       updatedAt
     }

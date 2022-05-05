@@ -12,6 +12,8 @@ Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk')
 const docClient = new AWS.DynamoDB.DocumentClient()
+const SNS = new AWS.SNS({apiVersion: '2010-03-31'});
+const topicArn = 'arn:aws:sns:us-east-1:948937876768:employees';
 
 const today = new Date()
 const params = {
@@ -38,18 +40,42 @@ async function getUsers() {
     }
 }
 
-exports.handler = async (event) => {
+exports.handler = async () => {
     try {
         const users = await getUsers()
         
-        users.Items.forEach((user) => {
-            if (user.sendNotifications) {
-                // Send notification for this user to SNS
-            }
-        })
+        const promises = users.Items
+            .filter(user => user.sendNotifications)
+            .map((user) => {
+                // Send notification for this user's bday to SNS
+                const message = "From everyone on Blue People we wish " + 
+                                `${user.name} (${user.blueTag}) a happy ` +
+                                "birthday"
+                return new Promise((resolve, reject) => {
+                    SNS.publish({
+                        MessageStructure: 'json',
+                        Message: JSON.stringify({
+                            default: message,
+                            GCM: JSON.stringify({
+                                data: {message: "HBD!", user}, 
+                                notification: {
+                                    title: "Happy birthday!", 
+                                    body: message
+                                }
+                            })
+                        }),
+                        TopicArn: topicArn
+                    }).promise()
+                    .then(response => resolve(response))
+                    .catch(err => reject(err))
+                })
+            });
+        
+        const results = await Promise.all(promises);
+        
         return {
             statusCode: 200,
-            body: JSON.stringify(users)
+            body: JSON.stringify({results, users})
         }
     } catch (error) {
         return {error: error}
