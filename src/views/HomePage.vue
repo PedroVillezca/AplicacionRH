@@ -11,7 +11,7 @@
       <ion-footer>
         <ion-toolbar class="footer">
           <ion-button class="set_btn" slot="end" router-link="/configuration">
-              Settings
+              Configuraciones
           </ion-button>
         </ion-toolbar>
       </ion-footer>
