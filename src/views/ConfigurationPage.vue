@@ -10,32 +10,47 @@
         </div>
         <ion-item class="line"></ion-item>
         <div id="personal-info">
+          <!-- NOMBES, APELLIDOS Y FECHA DE NACIMIENTO -->
           <h1>Información Personal</h1>
+          <ion-text>
+            <h4>Nombre(s):</h4>
+          <ion-input v-model="name" placeholder="Nombre"></ion-input>
+          <h4>Apellidos:</h4>
+          <ion-input v-model="lastname" placeholder="Apellidos"></ion-input>
+          <h4>Fecha de nacimiento:</h4>
+          <div id="birthdate">
+          <ion-input v-model="day" placeholder="DD" type="text" maxlength="2"></ion-input>/
+          <ion-input v-model="month" placeholder="MM" type="text" maxlength="2"></ion-input>/
+          <ion-input v-model="year" placeholder="YYYY" type="text" maxlength="4"></ion-input>
+          </div>
+          </ion-text>
           
-          <ion-text>Fecha de nacimiento:</ion-text>
-          <ion-datetime value="1999-08-18T13:47:20.789"></ion-datetime>
         </div>
-
+        <!-- PREFERENCIAS -->
         <div id ="preferences">
           <h1>Preferencias</h1>
           <div class="pref-options">
-          <ion-text>Permitir a otros conocer mi cumpleaños</ion-text>
-          <ion-toggle></ion-toggle>
+          <ion-text>Enviar notificación de mi cumpleaños</ion-text>
+          <ion-toggle v-model="sendNotifs"></ion-toggle>
           </div>
           <div class="pref-options">
-            <ion-text>Permitir saber el cumpleaños de otros</ion-text>
-            <ion-toggle></ion-toggle>
+            <ion-text>Recibir notificaciones de cumpleaños</ion-text>
+            <ion-toggle v-model="receiveNotifs"></ion-toggle>
           </div>
         </div>
-        <ion-button id="bttn-save">Guardar Cambios</ion-button>
+        <ion-button id="bttn-save" @click="saveInfo">Guardar Cambios</ion-button>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonContent, IonPage, IonText, IonToggle, IonIcon, IonButton  } from '@ionic/vue';
+import { Auth, API } from 'aws-amplify';
+import { IonContent, IonPage, IonText, IonToggle, IonIcon, IonButton, IonInput  } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { updateUser } from '../graphql/mutations'
+import { getUser } from '../graphql/queries'
+// import { arrow-back } from "ionicons/icons";
 
 export default defineComponent({
   name: 'ConfigurationPage',
@@ -43,13 +58,71 @@ export default defineComponent({
     IonContent,
     IonPage,
     IonText,
-    IonToggle
+    IonToggle,
+    IonIcon,
+    IonInput,
+    IonButton
   },
+  data() {
+    return {
+      blueTag: "",
+      name: "",
+      lastname: "",
+      day: "",
+      month: "",
+      year: "",
+      sendNotifs: true,
+      receiveNotifs: true
+    };
+  },
+  methods:{
+    async saveInfo() {
+      var dia = parseInt(this.day);
+      var mes = parseInt(this.month);
+      var anio = parseInt(this.year);
+
+      if (dia > 31 || dia < 1 || mes < 1 || mes > 12 || anio < 1950){
+        alert("Verificar la fecha")
+      } else{
+        const updatedUser = {
+          blueTag: this.blueTag,
+          firstName: this.name,
+          lastName: this.lastname,
+          birthDay: parseInt(this.day),
+          birthMonth: parseInt(this.month),
+          birthYear: parseInt(this.year),
+          receiveNotifications: this.receiveNotifs,
+          sendNotifications: this.sendNotifs
+        }
+
+        await API.graphql({query: updateUser, variables: {input: updatedUser}})
+        alert("Información actualizada correctamente")
+      }
+    },
+    getDynamoUser: async () => {
+      var userCognito = await Auth.currentAuthenticatedUser()
+      var userDynamo: any = await API.graphql({query: getUser, variables: {blueTag: userCognito.username}})
+      return userDynamo.data.getUser
+    }
+  },
+  async created() { 
+    var userDynamo = await this.getDynamoUser()
+    
+    this.blueTag = userDynamo.blueTag
+    this.name = userDynamo.firstName
+    this.lastname = userDynamo.lastName
+    this.day = userDynamo.birthDay
+    this.month = userDynamo.birthMonth
+    this.year = userDynamo.birthYear
+    this.sendNotifs = userDynamo.sendNotifications
+    this.receiveNotifs = userDynamo.receiveNotifications
+  }
 });
 
 </script>
 
 <style scoped>
+
 .line{
   border: 0;
   height: 5px;
@@ -57,7 +130,15 @@ export default defineComponent({
   margin-right: 5%;
   margin-bottom: 40px;
 }
-
+#birthdate{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+#calendario{
+  margin-top: 5%;
+  margin-left: 15%;  
+}
 #bttn-save {
   margin-top: 70px;
   margin-bottom: 70px;
@@ -85,6 +166,15 @@ export default defineComponent({
   font-size: 50px;
 }
 
+
+#personal-info h4 {
+    margin-left: 20px;
+}
+ion-input {
+  margin-left: 20px;
+  font-family: 'Montserrat';
+
+}
 #container {
   position: absolute;
   left: 20px;
