@@ -77,13 +77,23 @@ const services = {
           throw "El correo ya está en uso."
       }
 
-      await API.graphql({query: createUser, variables: {input: newUser}})
-      
-      return Auth.signUp({
-        username,
-        password,
-        attributes,
+      return API.graphql({query: createUser, variables: {input: newUser}})
+      .then(() => {
+          return Auth.signUp({
+            username,
+            password,
+            attributes,
+        })
+        .catch((error) => {throw "Error desconocido"});
+      })
+      .catch((error) => {
+          if (error.errors[0].errorType == "DynamoDB:ConditionalCheckFailedException") {
+              throw "La BlueTag ya está en uso."
+          } else {
+              throw "Error desconocido."
+          }
       });
+      
     },
   };
 </script>
