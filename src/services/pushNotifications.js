@@ -172,15 +172,25 @@ export const subscribeEmployee = (endpointArn) => {
 }
 
 export const unsubscribeEmployee = () => {
+  let sub;
   return new Promise((resolve, reject) => {
     Storage.get({key: 'subscription'})
     .then(({value}) => {
-      if(!value) return resolve();
-      return SNS.unsubscribe({SubscriptionArn: value}).promise();
+      if(!value) {
+        console.log('no sub found')
+        resolve();
+      } else {
+        sub = value;
+        return SNS.unsubscribe({SubscriptionArn: value}).promise();
+      }
     })
     .then(data => {
       console.log('unsubbed successfully: ', JSON.stringify(data));
-      return resolve(data);
+      return Storage.remove({key:'subscription'})
+    })
+    .then(() => {
+      console.log('removed sub from storage')
+      return resolve(sub);
     })
     .catch(err => reject(err))
   });
