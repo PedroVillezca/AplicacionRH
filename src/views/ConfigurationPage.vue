@@ -14,9 +14,9 @@
           <h1>Información Personal</h1>
           <ion-text>
             <h4>Nombre(s):</h4>
-          <ion-input v-model="name" placeholder="Guillermo Enrique"></ion-input>
+          <ion-input v-model="name" placeholder="Nombre"></ion-input>
           <h4>Apellidos:</h4>
-          <ion-input v-model="lastname" placeholder="Valles Villegas"></ion-input>
+          <ion-input v-model="lastname" placeholder="Apellidos"></ion-input>
           <h4>Fecha de nacimiento:</h4>
           <div id="birthdate">
           <ion-input v-model="day" placeholder="DD" type="text" maxlength="2"></ion-input>/
@@ -34,7 +34,7 @@
           <ion-toggle v-model="sendNotifs"></ion-toggle>
           </div>
           <div class="pref-options">
-            <ion-text>Recibir notificaciones del cumpleaños de otros</ion-text>
+            <ion-text>Recibir notificaciones de cumpleaños</ion-text>
             <ion-toggle v-model="receiveNotifs"></ion-toggle>
           </div>
         </div>
@@ -49,6 +49,7 @@ import { Auth, API } from 'aws-amplify';
 import { IonContent, IonPage, IonText, IonToggle, IonIcon, IonButton, IonInput  } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { updateUser } from '../graphql/mutations'
+import { getUser } from '../graphql/queries'
 // import { arrow-back } from "ionicons/icons";
 
 export default defineComponent({
@@ -62,20 +63,20 @@ export default defineComponent({
     IonInput,
     IonButton
   },
-  data(){
-    return{
-      name:"",
-      lastname:"",
-      day:"",
-      month:"",
-      year:"",
+  data() {
+    return {
+      blueTag: "",
+      name: "",
+      lastname: "",
+      day: "",
+      month: "",
+      year: "",
       sendNotifs: true,
       receiveNotifs: true
     };
   },
   methods:{
-    // FUNCION PARA GUARDAR LOS DATOS CON EL BOTON DE GUARDAR
-    async saveInfo(){
+    async saveInfo() {
       var dia = parseInt(this.day);
       var mes = parseInt(this.month);
       var anio = parseInt(this.year);
@@ -83,11 +84,8 @@ export default defineComponent({
       if (dia > 31 || dia < 1 || mes < 1 || mes > 12 || anio < 1950){
         alert("Verificar la fecha")
       } else{
-        // AQUI VA CON LO DE LA BASE DE DATOS
-        var user = await Auth.currentAuthenticatedUser()
-
         const updatedUser = {
-          blueTag: user.username,
+          blueTag: this.blueTag,
           firstName: this.name,
           lastName: this.lastname,
           birthDay: parseInt(this.day),
@@ -101,7 +99,23 @@ export default defineComponent({
         alert("Información actualizada correctamente")
       }
     },
+    getDynamoUser: async () => {
+      var userCognito = await Auth.currentAuthenticatedUser()
+      var userDynamo: any = await API.graphql({query: getUser, variables: {blueTag: userCognito.username}})
+      return userDynamo.data.getUser
+    }
+  },
+  async created() { 
+    var userDynamo = await this.getDynamoUser()
     
+    this.blueTag = userDynamo.blueTag
+    this.name = userDynamo.firstName
+    this.lastname = userDynamo.lastName
+    this.day = userDynamo.birthDay
+    this.month = userDynamo.birthMonth
+    this.year = userDynamo.birthYear
+    this.sendNotifs = userDynamo.sendNotifications
+    this.receiveNotifs = userDynamo.receiveNotifications
   }
 });
 
