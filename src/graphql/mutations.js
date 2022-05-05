@@ -8,7 +8,8 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       blueTag
-      name
+      firstName
+      lastName
       birthDay
       birthMonth
       birthYear
@@ -27,7 +28,8 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       blueTag
-      name
+      firstName
+      lastName
       birthDay
       birthMonth
       birthYear
@@ -46,7 +48,8 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       blueTag
-      name
+      firstName
+      lastName
       birthDay
       birthMonth
       birthYear

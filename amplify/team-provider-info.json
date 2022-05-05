@@ -24,7 +24,7 @@
       "function": {
         "birthday": {
           "deploymentBucketName": "amplify-aplicacionrh-dev-173254-deployment",
-          "s3Key": "amplify-builds/birthday-706c7964732b4a317a62-build.zip"
+          "s3Key": "amplify-builds/birthday-515a424c533841346b76-build.zip"
         }
       }
     }

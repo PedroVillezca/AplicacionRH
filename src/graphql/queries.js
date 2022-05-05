@@ -5,7 +5,8 @@ export const getUser = /* GraphQL */ `
   query GetUser($blueTag: ID!) {
     getUser(blueTag: $blueTag) {
       blueTag
-      name
+      firstName
+      lastName
       birthDay
       birthMonth
       birthYear
@@ -34,7 +35,8 @@ export const listUsers = /* GraphQL */ `
     ) {
       items {
         blueTag
-        name
+        firstName
+        lastName
         birthDay
         birthMonth
         birthYear
@@ -65,7 +67,8 @@ export const getUserByEmail = /* GraphQL */ `
     ) {
       items {
         blueTag
-        name
+        firstName
+        lastName
         birthDay
         birthMonth
         birthYear

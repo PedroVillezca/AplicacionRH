@@ -5,7 +5,8 @@ export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser {
     onCreateUser {
       blueTag
-      name
+      firstName
+      lastName
       birthDay
       birthMonth
       birthYear
@@ -21,7 +22,8 @@ export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser {
     onUpdateUser {
       blueTag
-      name
+      firstName
+      lastName
       birthDay
       birthMonth
       birthYear
@@ -37,7 +39,8 @@ export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser {
     onDeleteUser {
       blueTag
-      name
+      firstName
+      lastName
       birthDay
       birthMonth
       birthYear

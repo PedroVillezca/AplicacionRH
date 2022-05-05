@@ -60,8 +60,9 @@ const services = {
 
       // Save user in DynamoDB
       const newUser = {
-          blueTag: username,
-          name: `${attributes.given_name} ${attributes.family_name}`,
+          blueTag: username.toLowerCase(),
+          firstName: attributes.given_name,
+          lastName: attributes.family_name,
           birthDay: parseInt(attributes.birthdate.substring(8, 10)),
           birthMonth: parseInt(attributes.birthdate.substring(5, 7)),
           birthYear: parseInt(attributes.birthdate.substring(0, 4)),
