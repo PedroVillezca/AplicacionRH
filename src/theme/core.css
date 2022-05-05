@@ -32,6 +32,14 @@ ion-content{
     color: var(--ion-color-tertiary);
   }
 
+ion-header{
+  background-color: var(--ion-color-secondary);
+}
+
+ion-footer{
+  background-color: var(--ion-color-secondary);
+}
+
 /*
 .amplify-grid[data-variation='primary'] {
     height: 100%;

@@ -52,7 +52,7 @@ export default {
     components: {
         Authenticator,
         AppHeader,
-        IonRouterOutlet,
+        IonRouterOutlet
     },
     data() {
         return {

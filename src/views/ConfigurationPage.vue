@@ -85,10 +85,6 @@ export default defineComponent({
   font-size: 50px;
 }
 
-#personal-info {
-
-}
-
 #container {
   position: absolute;
   left: 20px;
