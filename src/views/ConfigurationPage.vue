@@ -50,6 +50,8 @@ import { IonContent, IonPage, IonText, IonToggle, IonIcon, IonButton, IonInput  
 import { defineComponent } from 'vue';
 import { updateUser } from '../graphql/mutations'
 import { getUser } from '../graphql/queries'
+import { subscribeEmployee, unsubscribeEmployee } from '../services/pushNotifications'
+import { Storage } from '@capacitor/storage';
 // import { arrow-back } from "ionicons/icons";
 
 export default defineComponent({
@@ -96,6 +98,12 @@ export default defineComponent({
         }
 
         await API.graphql({query: updateUser, variables: {input: updatedUser}})
+        if(this.receiveNotifs) {
+          const {value} = await Storage.get({key: 'endpoint'})
+          await subscribeEmployee(value);
+        } else {
+          await unsubscribeEmployee();
+        }
         alert("Información actualizada correctamente")
       }
     },
@@ -107,7 +115,7 @@ export default defineComponent({
   },
   async created() { 
     var userDynamo = await this.getDynamoUser()
-    
+
     this.blueTag = userDynamo.blueTag
     this.name = userDynamo.firstName
     this.lastname = userDynamo.lastName
