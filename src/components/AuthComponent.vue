@@ -60,17 +60,23 @@ const services = {
 
       // Save user in DynamoDB
       const newUser = {
-          blueTag: username,
-          name: `${attributes.given_name} ${attributes.family_name}`,
-          birthday: attributes.birthdate,
-          email: attributes.email
+          blueTag: username.toLowerCase(),
+          firstName: attributes.given_name,
+          lastName: attributes.family_name,
+          birthDay: parseInt(attributes.birthdate.substring(8, 10)),
+          birthMonth: parseInt(attributes.birthdate.substring(5, 7)),
+          birthYear: parseInt(attributes.birthdate.substring(0, 4)),
+          email: attributes.email,
+          receiveNotifications: true,
+          sendNotifications: true
       }
 
-      await API.graphql({query: getUserByEmail, variables: {email: newUser.email}})
-      .then((result) => {
-          console.log(result)
-      })
       
+      var duplicateEmails = await API.graphql({query: getUserByEmail, variables: {email: newUser.email}})
+      if (duplicateEmails.data.getUserByEmail.items.length >= 1) {
+          throw "El correo ya está en uso."
+      }
+
       return API.graphql({query: createUser, variables: {input: newUser}})
       .then(() => {
           return Auth.signUp({
@@ -90,7 +96,4 @@ const services = {
       
     },
   };
- 
 </script>
-
-
