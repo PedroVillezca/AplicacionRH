@@ -1,4 +1,5 @@
 <template>
+    <ion-content :scroll-events="true">
     <authenticator 
         :login-mechanisms="['username']"
         :sign-up-attributes="[
@@ -10,16 +11,38 @@
         ]"
         :services="services"
     >
+        <template v-slot:header>
+            <div style="text-align: center">
+                <img
+                class="amplify-image"
+                alt = "Logo BluePeople"
+                src="../assets/bluepeople-logo.svg"
+                />
+            </div>
+        </template>
+
+        <template v-slot:sign-up-header>
+            <h4 class="amplify-heading"
+                style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)">
+                Crea una cuenta nueva
+            </h4>
+        </template>
+        <template v-slot:sign-in-header>
+            <h4 class="amplify-heading"
+                style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)">
+                Ingresa con tu cuenta
+            </h4>
+        </template>
         <app-header></app-header>
         <ion-router-outlet />
     </authenticator>
+    </ion-content>
 </template>
 
 <script>
 import { I18n, Auth, API } from 'aws-amplify';
 import { Authenticator, translations } from "@aws-amplify/ui-vue";
 import { IonRouterOutlet } from '@ionic/vue';
-
 import "@aws-amplify/ui-vue/styles.css";
 import { getUserByEmail } from '../graphql/queries'
 import { createUser } from '../graphql/mutations'
@@ -30,7 +53,7 @@ export default {
     components: {
         Authenticator,
         AppHeader,
-        IonRouterOutlet
+        IonRouterOutlet,
     },
     data() {
         return {

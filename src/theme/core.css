@@ -1,11 +1,27 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,800&display=swap');
+
 ion-app{
     /*color fondo */
-    background-color: #25305F;
+    background-color: var(--ion-color-secondary);
     align-items: center;
     display: flex;
     justify-content: center;
+    font-family: 'Montserrat';
     /*vertical-align: middle;*/
+}
+.amplify-image {
+  height: 230px;
+}
+
+ion-text{
+  font-family: 'Montserrat';
+}
+
+ion-content{
+  --background: var(--ion-color-secondary);
+  font-family: 'Montserrat';
+  --container-height: 100vh;
 }
 
 .amplify-button[data-variation='primary'] {
@@ -28,21 +44,3 @@ ion-app{
     height: 100%;
 }
 */
-
-/*header */
-
-ion-header{
-  background-color: black;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-ion-toolbar{
-  width: 100%;
-}
-.logo_bar{
-  padding-left: 30px;
-}
-.so_btn{
-  color: var(--ion-color-primary);
-}

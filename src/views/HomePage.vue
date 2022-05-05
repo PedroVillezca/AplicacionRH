@@ -42,14 +42,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 #container {
   text-align: center;
-  display: flex;
-  position:absolute;
-  top: 23%;
-  left: 2%;
+  
+  position: absolute;
+  left: 0;
   right: 0;
+  top: 50%;
   transform: translateY(-50%);
 }
 
@@ -58,9 +57,16 @@ export default defineComponent({
   line-height: 26px;
 }
 
-#welcome-text{
-  color:#ffff;
-  justify-content: flex-start;
-  position:absolute;
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  
+  color: #8c8c8c;
+  
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
 }
 </style>
