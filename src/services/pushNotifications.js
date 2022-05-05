@@ -100,7 +100,7 @@ const notificationInitialSetup = () => {
 }
 
 const setupAuthListeners = () => {
-  console.log('adding listeners')
+  console.log('adding notification listeners')
   Hub.listen('auth', (data) => {
     console.log(`Auth event ${JSON.stringify(data)}`)
     switch(data.payload.event) {
@@ -147,18 +147,41 @@ const setupAuthListeners = () => {
 }
 
 export const subscribeEmployee = (endpointArn) => {
+  let sub;
   return new Promise((res, rej) => {
     console.log(`SUB ARN ${endpointArn}`)
     SNS.subscribe({
       Protocol: 'application',
       TopicArn: topicArn,
       Endpoint: endpointArn,
-    }, (err, data) => {
-      if (err) {
-        rej(err)
-      } else {
-        res(data.SubscriptionArn)
-      }
+    }).promise()
+    .then(data => {
+      console.log('subbed with subArn ', data.SubscriptionArn)
+      sub = data.SubscriptionArn;
+      return Storage.set({
+        key:'subscription', 
+        value: data.SubscriptionArn
+      })
     })
+    .then(() => {
+      console.log('stored subscription on local storage');
+      return res(sub)
+    })
+    .catch(err => rej(err))
   })
+}
+
+export const unsubscribeEmployee = () => {
+  return new Promise((resolve, reject) => {
+    Storage.get({key: 'subscription'})
+    .then(({value}) => {
+      if(!value) return resolve();
+      return SNS.unsubscribe({SubscriptionArn: value}).promise();
+    })
+    .then(data => {
+      console.log('unsubbed successfully: ', JSON.stringify(data));
+      return resolve(data);
+    })
+    .catch(err => reject(err))
+  });
 }
