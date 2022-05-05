@@ -44,6 +44,7 @@ import { I18n, Auth, API } from 'aws-amplify';
 import { Authenticator, translations } from "@aws-amplify/ui-vue";
 import { IonRouterOutlet } from '@ionic/vue';
 import "@aws-amplify/ui-vue/styles.css";
+import { getUserByEmail } from '../graphql/queries'
 import { createUser } from '../graphql/mutations'
 import AppHeader from '../components/Header.vue';
 
@@ -82,20 +83,40 @@ const services = {
 
       // Save user in DynamoDB
       const newUser = {
-          blueTag: username,
-          name: `${attributes.given_name} ${attributes.family_name}`,
-          birthday: attributes.birthdate,
-          devices: ["dummy"] 
+          blueTag: username.toLowerCase(),
+          firstName: attributes.given_name,
+          lastName: attributes.family_name,
+          birthDay: parseInt(attributes.birthdate.substring(8, 10)),
+          birthMonth: parseInt(attributes.birthdate.substring(5, 7)),
+          birthYear: parseInt(attributes.birthdate.substring(0, 4)),
+          email: attributes.email,
+          receiveNotifications: true,
+          sendNotifications: true
       }
-      await API.graphql({query: createUser, variables: {input: newUser}})
+
       
-      return Auth.signUp({
-        username,
-        password,
-        attributes,
+      var duplicateEmails = await API.graphql({query: getUserByEmail, variables: {email: newUser.email}})
+      if (duplicateEmails.data.getUserByEmail.items.length >= 1) {
+          throw "El correo ya está en uso."
+      }
+
+      return API.graphql({query: createUser, variables: {input: newUser}})
+      .then(() => {
+          return Auth.signUp({
+            username,
+            password,
+            attributes,
+        })
+        .catch(() => {throw "Error desconocido"});
+      })
+      .catch((error) => {
+          if (error.errors[0].errorType == "DynamoDB:ConditionalCheckFailedException") {
+              throw "La BlueTag ya está en uso."
+          } else {
+              throw "Error desconocido."
+          }
       });
+      
     },
   };
 </script>
-
-
