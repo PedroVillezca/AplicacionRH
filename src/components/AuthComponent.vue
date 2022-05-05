@@ -84,7 +84,7 @@ const services = {
             password,
             attributes,
         })
-        .catch((error) => {throw "Error desconocido"});
+        .catch(() => {throw "Error desconocido"});
       })
       .catch((error) => {
           if (error.errors[0].errorType == "DynamoDB:ConditionalCheckFailedException") {
