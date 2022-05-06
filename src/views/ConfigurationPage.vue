@@ -3,7 +3,7 @@
     <ion-content :scroll-events="true">
       <div id="container">
         <div id="conf-title">
-          <ion-button router-link="/home">
+          <ion-button router-link="/home" fill="clear">
           <ion-icon name="arrow-back"></ion-icon>
           </ion-button>
           Configuración
