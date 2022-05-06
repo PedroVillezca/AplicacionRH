@@ -3,8 +3,8 @@
     <ion-content :scroll-events="true">
       <div id="container">
         <div id="conf-title">
-          <ion-button router-link="/home">
-          <ion-icon name="arrow-back"></ion-icon>
+          <ion-button @click="$router.go(-1)">
+            <ion-icon name="arrow-back"></ion-icon>
           </ion-button>
           Configuración
         </div>
@@ -113,7 +113,7 @@ export default defineComponent({
       return userDynamo.data.getUser
     }
   },
-  async created() { 
+  async mounted() {
     var userDynamo = await this.getDynamoUser()
 
     this.blueTag = userDynamo.blueTag

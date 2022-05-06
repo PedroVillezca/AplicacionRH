@@ -3,7 +3,7 @@
     
     <ion-content :scroll-events="true">
       <div id="container">
-        <h1 id="welcome-text"> Hola, {{user.attributes.given_name}}! </h1>
+        <h1 id="welcome-text"> Hola, {{this.firstName}}! </h1>
       </div>
     </ion-content>
 
@@ -23,7 +23,8 @@
 <script lang="ts">
 import { IonContent, IonPage, IonFooter, IonButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
-import { Auth } from 'aws-amplify';
+import { Auth, API } from 'aws-amplify';
+import { getUser } from '../graphql/queries'
 
 export default defineComponent({
   name: 'HomePage',
@@ -35,7 +36,7 @@ export default defineComponent({
   },
   data () {
     return {
-      user: {username: '', attributes: {birthdate:'', email:'', family_name:'', given_name:''}}
+      firstName: "",
     }
   },
   methods: {
@@ -45,7 +46,10 @@ export default defineComponent({
     }
   },
   async created() {
-    this.user = await this.getAuthenticatedUser()
+    var userCognito = await Auth.currentAuthenticatedUser()
+    var userDynamo: any = await API.graphql({query: getUser, variables: {blueTag: userCognito.username}})
+
+    this.firstName = userDynamo.data.getUser.firstName
   }
 });
 
