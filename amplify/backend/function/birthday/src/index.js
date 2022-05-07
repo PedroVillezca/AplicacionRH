@@ -33,7 +33,6 @@ const params = {
 
 async function getUsers() {
     const users = await docClient.scan(params).promise()
-    console.log(users)
     return users
 }
 
