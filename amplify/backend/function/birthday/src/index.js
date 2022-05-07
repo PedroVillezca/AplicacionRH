@@ -32,12 +32,8 @@ const params = {
 }
 
 async function getUsers() {
-    try {
-        const users = await docClient.scan(params).promise()
-        return users
-    } catch (error) {
-        return error
-    }
+    const users = await docClient.scan(params).promise()
+    return users
 }
 
 exports.handler = async () => {
@@ -49,8 +45,8 @@ exports.handler = async () => {
             .map((user) => {
                 // Send notification for this user's bday to SNS
                 const message = "From everyone on Blue People we wish " + 
-                                `${user.name} (${user.blueTag}) a happy ` +
-                                "birthday"
+                                `${user.firstName} ${user.lastName} (${user.blueTag}) ` +
+                                "a happy birthday"
                 return new Promise((resolve, reject) => {
                     SNS.publish({
                         MessageStructure: 'json',

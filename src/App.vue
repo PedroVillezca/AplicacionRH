@@ -25,7 +25,6 @@ export default defineComponent({
     LandingPage
   },
   created() {
-    console.log('app.vue created')
     pushNotificationServiceSetup();
   }
 });
