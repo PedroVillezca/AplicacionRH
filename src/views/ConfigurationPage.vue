@@ -3,7 +3,7 @@
     <ion-content :scroll-events="true">
       <div id="container">
         <div id="conf-title">
-          <ion-button @click="$router.go(-1)">
+          <ion-button @click="$router.go(-1)" fill="clear">
             <ion-icon name="arrow-back"></ion-icon>
           </ion-button>
           Configuración
