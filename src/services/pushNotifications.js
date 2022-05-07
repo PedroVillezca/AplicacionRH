@@ -5,6 +5,8 @@ import {
 } from '@capacitor/push-notifications';
 import { Hub } from 'aws-amplify';
 import { Storage } from '@capacitor/storage';
+import { getUser } from '../graphql/queries'
+import { Auth, API } from 'aws-amplify';
 
 AWS.config.update({region: 'us-east-1', accessKeyId, secretAccessKey })
 const SNS = new AWS.SNS({apiVersion: '2010-03-31'});
@@ -66,7 +68,18 @@ const notificationInitialSetup = () => {
           })
         })
         .then(() => {
-          return subscribeEmployee(endpoint)
+          return Auth.currentAuthenticatedUser()
+        })
+        .then(userCognito => {
+          return API.graphql({query: getUser, variables: {blueTag: userCognito.username}})
+        })
+        .then(userDynamo => {
+          if(userDynamo.data.getUser.receiveNotifications) {
+            return subscribeEmployee(endpoint)
+          } else {
+            console.log('user unsubbed per config');
+            return unsubscribeEmployee();
+          }
         })
         .then(subArn => {
           console.log('Subscribed successfully to employee topic: ' + subArn)
@@ -100,13 +113,12 @@ const notificationInitialSetup = () => {
 }
 
 const setupAuthListeners = () => {
-  console.log('adding listeners')
+  console.log('adding notification listeners')
   Hub.listen('auth', (data) => {
     console.log(`Auth event ${JSON.stringify(data)}`)
     switch(data.payload.event) {
       case 'signIn':
         console.log('signed in');
-        console.log(data.payload.data)
         // Request permission to use push notifications
         // iOS will prompt user and return if they granted permission or not
         // Android will just grant without prompting
@@ -147,18 +159,51 @@ const setupAuthListeners = () => {
 }
 
 export const subscribeEmployee = (endpointArn) => {
+  let sub;
   return new Promise((res, rej) => {
     console.log(`SUB ARN ${endpointArn}`)
     SNS.subscribe({
       Protocol: 'application',
       TopicArn: topicArn,
       Endpoint: endpointArn,
-    }, (err, data) => {
-      if (err) {
-        rej(err)
+    }).promise()
+    .then(data => {
+      console.log('subbed with subArn ', data.SubscriptionArn)
+      sub = data.SubscriptionArn;
+      return Storage.set({
+        key:'subscription', 
+        value: data.SubscriptionArn
+      })
+    })
+    .then(() => {
+      console.log('stored subscription on local storage');
+      return res(sub)
+    })
+    .catch(err => rej(err))
+  })
+}
+
+export const unsubscribeEmployee = () => {
+  let sub;
+  return new Promise((resolve, reject) => {
+    Storage.get({key: 'subscription'})
+    .then(({value}) => {
+      if(!value) {
+        console.log('no sub found')
+        resolve();
       } else {
-        res(data.SubscriptionArn)
+        sub = value;
+        return SNS.unsubscribe({SubscriptionArn: value}).promise();
       }
     })
-  })
+    .then(data => {
+      console.log('unsubbed successfully: ', JSON.stringify(data));
+      return Storage.remove({key:'subscription'})
+    })
+    .then(() => {
+      console.log('removed sub from storage')
+      return resolve(sub);
+    })
+    .catch(err => reject(err))
+  });
 }

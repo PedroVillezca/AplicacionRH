@@ -13,7 +13,7 @@
     "@aws-amplify/ui-vue": "^2.3.2",
     "@capacitor/android": "3.4.3",
     "@capacitor/app": "1.1.1",
-    "@capacitor/core": "3.4.3",
+    "@capacitor/core": "^3.4.3",
     "@capacitor/haptics": "1.1.4",
     "@capacitor/keyboard": "1.2.2",
     "@capacitor/push-notifications": "^1.0.9",
