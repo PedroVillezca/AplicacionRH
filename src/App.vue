@@ -7,11 +7,11 @@
 
 <script lang="ts">
 
-
 import { IonApp } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 import Amplify from 'aws-amplify';
+import {pushNotificationServiceSetup} from './services/pushNotifications';
 import awsconfig from './aws-exports';
 
 import LandingPage from './views/Landing.vue'
@@ -23,8 +23,10 @@ export default defineComponent({
   components: {
     IonApp,
     LandingPage
+  },
+  created() {
+    pushNotificationServiceSetup();
   }
 });
 
 </script>
-

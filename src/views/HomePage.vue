@@ -1,31 +1,42 @@
 <template>
   <ion-page>
     
-    <ion-content :fullscreen="true">
+    <ion-content :scroll-events="true">
       <div id="container">
-        <ion-text>
-          <h1 id="welcome-text"> Hola, {{user.attributes.given_name}}! </h1>
-        </ion-text>
+        <h1 id="welcome-text"> Hola, {{this.firstName}}! </h1>
       </div>
     </ion-content>
+
+    <div id="ft">
+      <ion-footer>
+        <ion-toolbar class="footer">
+          <ion-button class="set_btn" slot="end" router-link="/configuration">
+              Configuraciones
+          </ion-button>
+        </ion-toolbar>
+      </ion-footer>
+    </div>
   </ion-page>
 </template>
 
+
 <script lang="ts">
-import { IonContent, IonPage, IonText  } from '@ionic/vue';
+import { IonContent, IonPage, IonFooter, IonButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
-import { Auth } from 'aws-amplify';
+import { Auth, API } from 'aws-amplify';
+import { getUser } from '../graphql/queries'
 
 export default defineComponent({
   name: 'HomePage',
   components: {
     IonContent,
     IonPage,
-    IonText
+    IonFooter,
+    IonButton
   },
   data () {
     return {
-      user: {username: '', attributes: {birthdate:'', email:'', family_name:'', given_name:''}}
+      firstName: "",
     }
   },
   methods: {
@@ -35,32 +46,55 @@ export default defineComponent({
     }
   },
   async created() {
-    this.user = await this.getAuthenticatedUser()
+    var userCognito = await Auth.currentAuthenticatedUser()
+    var userDynamo: any = await API.graphql({query: getUser, variables: {blueTag: userCognito.username}})
+
+    this.firstName = userDynamo.data.getUser.firstName
   }
 });
 
 </script>
 
 <style scoped>
-
+ion-content{
+  --background: var(--ion-color-tertiary);
+}
 #container {
   text-align: center;
-  display: flex;
-  position:absolute;
-  top: 23%;
-  left: 2%;
+  
+  position: absolute;
+  left: 0;
   right: 0;
+  top: 25%;
   transform: translateY(-50%);
+  display: flexbox;
+  flex-direction: column;
 }
-
+#welcome-text {
+  color:black;
+  margin-top: 0px;
+  margin-right: 80%;
+}
 #container strong {
   font-size: 20px;
   line-height: 26px;
 }
 
-#welcome-text{
-  color:#ffff;
-  justify-content: flex-start;
-  position:absolute;
+#container p {
+  display: flex;
+  font-size: 16px;
+  line-height: 22px;
+  flex-direction: column;
+  color: #8c8c8c;
+  
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+.set_btn{
+  margin-right: 20px;
 }
 </style>

@@ -1,0 +1,15 @@
+{
+	"appId": "com.bluepeople.aplicacionrh",
+	"appName": "AplicacionRH",
+	"webDir": "dist",
+	"bundledWebRuntime": false,
+	"plugins": {
+		"PushNotifications": {
+			"presentationOptions": [
+				"badge",
+				"sound",
+				"alert"
+			]
+		}
+	}
+}
