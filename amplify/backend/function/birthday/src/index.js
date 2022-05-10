@@ -14,9 +14,21 @@ const AWS = require('aws-sdk')
 const docClient = new AWS.DynamoDB.DocumentClient()
 const SNS = new AWS.SNS({apiVersion: '2010-03-31'});
 const topicArn = 'arn:aws:sns:us-east-1:948937876768:employees';
+const notificationTable = 'Notification-hl6vsyf54zdgbl5pfiu7uwrpp4-dev'
 
 const today = new Date()
-const params = {
+const storeNotifParams = {
+    TableName: notificationTable,
+    AttributesToGet: ['blueTag'],
+    ScanFilter: {
+        'receiveNotifications': {
+            ComparisonOperator: 'EQ',
+            AttributeValueList: [true]
+        }
+    }
+
+}
+const sendNotifParams = {
     TableName: 'User-hl6vsyf54zdgbl5pfiu7uwrpp4-dev',
     IndexName: 'birthday-index',
     ScanFilter: {
@@ -31,14 +43,20 @@ const params = {
     }
 }
 
-async function getUsers() {
-    const users = await docClient.scan(params).promise()
+async function getBirthdays() {
+    const users = await docClient.scan(sendNotifParams).promise()
+    return users
+}
+
+async function getNotifiedUsers() {
+    const users = await docClient.scan(storeNotifParams).promise()
     return users
 }
 
 exports.handler = async () => {
     try {
-        const users = await getUsers()
+        const users = await getBirthdays()
+        const notifiedUsers = await getNotifiedUsers()
         
         const promises = users.Items
             .filter(user => user.sendNotifications)
@@ -62,7 +80,30 @@ exports.handler = async () => {
                         }),
                         TopicArn: topicArn
                     }).promise()
-                    .then(response => resolve(response))
+                    .then((response) => {
+                        const batchParams = {
+                            notificationTable: []
+                        }
+                        notifiedUsers.Items.forEach((user) => {
+                            batchParams[notificationTable].append({
+                                PutRequest: {
+                                    Item: {
+                                        'blueTag': user.blueTag,
+                                        'date': today,
+                                        'message': message
+                                    }
+                                }
+                            })
+                        })
+                        docClient.batchWrite(batchParams, (err, data) => {
+                            if (err) {
+                                console.log(err, err.stack)
+                            } else {
+                                console.log(data);
+                            }
+                        })
+                        resolve(response)
+                    })
                     .catch(err => reject(err))
                 })
             });
