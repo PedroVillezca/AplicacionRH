@@ -16,7 +16,9 @@
                 <img
                 class="amplify-image"
                 alt = "Logo BluePeople"
-                src="../assets/bluepeople-logo.svg"
+                width="50"
+                height="25"
+                src="../assets/bluepeople-logo-white-blue-72.png"
                 />
             </div>
         </template>

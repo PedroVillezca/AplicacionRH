@@ -4,7 +4,7 @@ http://ionicframework.com/docs/theming/ */
 /** Ionic CSS Variables **/
 :root {
   --ion-item-background: white;
-  /** primary azul rey Bluepeople **/
+  /** primary azul rey Bluepeople: **/
   --ion-color-primary: #25305F;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #000;
@@ -12,8 +12,8 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-primary-shade: #3171e0;
   --ion-color-primary-tint: #4c8dff;
 
-  /** secondary azul BluePeople **/
-  --ion-color-secondary: #19478C;
+  /** secondary azul BluePeople * 19478c*/
+  --ion-color-secondary: #333366;
   --ion-color-secondary-rgb: 61, 194, 255;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
@@ -87,7 +87,8 @@ http://ionicframework.com/docs/theming/ */
    */
 
   body {
-    --ion-color-primary: #5576d1;
+    /* #25576d1*/
+    --ion-color-primary: #25305F;
     /*--ion-color-primary-rgb: 66,140,255;*/
     /*--ion-color-primary-contrast: #ffffff;*/
     /*--ion-color-primary-contrast-rgb: 255,255,255;

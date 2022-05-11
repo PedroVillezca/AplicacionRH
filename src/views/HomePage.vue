@@ -97,5 +97,6 @@ ion-content{
 .ion-icon{
   --color: var(--ion-color-tertiary);
   fill: clear;
+  color:white;
 }
 </style>
