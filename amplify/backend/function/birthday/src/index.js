@@ -66,6 +66,8 @@ exports.handler = async () => {
                                 `${user.firstName} ${user.lastName} (${user.blueTag}) ` +
                                 "a happy birthday"
                 return new Promise((resolve, reject) => {
+                    let results;
+
                     SNS.publish({
                         MessageStructure: 'json',
                         Message: JSON.stringify({
@@ -80,7 +82,8 @@ exports.handler = async () => {
                         }),
                         TopicArn: topicArn
                     }).promise()
-                    .then((response) => {
+                    .then((res) => {
+                        results = res
                         const batchParams = {
                             notificationTable: []
                         }
@@ -95,15 +98,9 @@ exports.handler = async () => {
                                 }
                             })
                         })
-                        docClient.batchWrite(batchParams, (err, data) => {
-                            if (err) {
-                                console.log(err, err.stack)
-                            } else {
-                                console.log(data);
-                            }
-                        })
-                        resolve(response)
+                        return docClient.batchWrite(batchParams).promise()
                     })
+                    .then(response => resolve({results, response}))
                     .catch(err => reject(err))
                 })
             });
@@ -112,7 +109,7 @@ exports.handler = async () => {
         
         return {
             statusCode: 200,
-            body: JSON.stringify({results, users})
+            body: JSON.stringify({data:results, users})
         }
     } catch (error) {
         return {error: error}
