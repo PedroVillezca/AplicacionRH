@@ -10,8 +10,8 @@
     <div id="ft">
       <ion-footer>
         <ion-toolbar class="footer">
-          <ion-button class="set_btn" slot="end" fill="clear" router-link="/configuration">
-              <ion-icon name="settings" color="white"></ion-icon>
+          <ion-button class="set_btn" slot="end" router-link="/configuration">
+              Configuraciones
           </ion-button>
         </ion-toolbar>
       </ion-footer>
@@ -21,7 +21,7 @@
 
 
 <script lang="ts">
-import { IonContent, IonPage, IonFooter, IonButton, IonIcon} from '@ionic/vue';
+import { IonContent, IonPage, IonFooter, IonButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Auth, API } from 'aws-amplify';
 import { getUser } from '../graphql/queries'
@@ -32,8 +32,7 @@ export default defineComponent({
     IonContent,
     IonPage,
     IonFooter,
-    IonButton,
-    IonIcon
+    IonButton
   },
   data () {
     return {
