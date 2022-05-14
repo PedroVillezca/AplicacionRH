@@ -24,7 +24,7 @@
 import { IonContent, IonPage, IonFooter, IonButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Auth, API } from 'aws-amplify';
-import { getUser } from '../graphql/queries'
+import { getUser, listNotifications } from '../graphql/queries'
 
 export default defineComponent({
   name: 'HomePage',
@@ -37,6 +37,7 @@ export default defineComponent({
   data () {
     return {
       firstName: "",
+      blueTag: ""
     }
   },
   methods: {
@@ -50,6 +51,11 @@ export default defineComponent({
     var userDynamo: any = await API.graphql({query: getUser, variables: {blueTag: userCognito.username}})
 
     this.firstName = userDynamo.data.getUser.firstName
+    this.blueTag = userDynamo.data.getUser.blueTag
+
+    var notifications: any = await API.graphql({query: listNotifications, variables: {blueTag: this.blueTag}})
+    console.log(notifications)
+
   }
 });
 
