@@ -83,8 +83,14 @@ export default defineComponent({
       var mes = parseInt(this.month);
       var anio = parseInt(this.year);
 
-      if (dia > 31 || dia < 1 || mes < 1 || mes > 12 || anio < 1950){
-        alert("Verificar la fecha")
+      if ( isNaN(dia) || isNaN(mes) || isNaN(anio) ||
+           dia > 31 || dia < 1 || mes < 1 || mes > 12 || anio < 1950){
+        const toast = await toastController.create({
+          message:"Verificar la fecha",
+          color: 'danger',
+          duration: 2000,
+          })
+        toast.present()
       } else{
         const updatedUser = {
           blueTag: this.blueTag,
