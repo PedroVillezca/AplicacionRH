@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import { Auth, API } from 'aws-amplify';
-import { IonContent, IonPage, IonText, IonToggle, IonIcon, IonButton, IonInput  } from '@ionic/vue';
+import { IonContent, IonPage, IonText, IonToggle, IonIcon, IonButton, IonInput, toastController } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { updateUser } from '../graphql/mutations'
 import { getUser } from '../graphql/queries'
@@ -104,7 +104,13 @@ export default defineComponent({
         } else {
           await unsubscribeEmployee();
         }
-        alert("Información actualizada correctamente")
+        const toast = await toastController.create({
+          message:"Información actualizada correctamente",
+          color: "success",
+          duration: 2000
+          })
+
+        toast.present();
       }
     },
     getDynamoUser: async () => {
