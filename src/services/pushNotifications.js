@@ -86,7 +86,7 @@ const notificationInitialSetup = () => {
           console.log('Subscribed successfully to employee topic: ' + subArn)
         })
         .catch(err => {
-          console.log('Error on initial notifications setup: ' + err);
+          console.log('Error on initial notifications setup: ' + JSON.stringify(err));
         })
     }
   )
@@ -153,7 +153,7 @@ const setupAuthListeners = () => {
           }).promise()
         })
         .then((data) => {
-          console.log('endpoint disabled', data)
+          console.log('endpoint disabled', JSON.stringify(data))
           return Storage.remove({key: 'endpoint'})
         })
         .then(() => {
