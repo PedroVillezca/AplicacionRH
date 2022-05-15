@@ -16,6 +16,6 @@ type User @model {
 
 type Notification @model {
   blueTag: ID! @primaryKey(sortKeyFields: ["date", "message"])
-  date: Date!
+  date: AWSDate!
   message: String!
 }

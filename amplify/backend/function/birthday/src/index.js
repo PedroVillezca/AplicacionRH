@@ -14,11 +14,12 @@ const AWS = require('aws-sdk')
 const docClient = new AWS.DynamoDB.DocumentClient()
 const SNS = new AWS.SNS({apiVersion: '2010-03-31'});
 const topicArn = 'arn:aws:sns:us-east-1:948937876768:employees';
+const userTable = 'User-hl6vsyf54zdgbl5pfiu7uwrpp4-dev'
 const notificationTable = 'Notification-hl6vsyf54zdgbl5pfiu7uwrpp4-dev'
 
 const today = new Date()
 const storeNotifParams = {
-    TableName: notificationTable,
+    TableName: userTable,
     AttributesToGet: ['blueTag'],
     ScanFilter: {
         'receiveNotifications': {
@@ -29,7 +30,7 @@ const storeNotifParams = {
 
 }
 const sendNotifParams = {
-    TableName: 'User-hl6vsyf54zdgbl5pfiu7uwrpp4-dev',
+    TableName: userTable,
     IndexName: 'birthday-index',
     ScanFilter: {
         'birthDay': {
@@ -84,21 +85,40 @@ exports.handler = async () => {
                     }).promise()
                     .then((res) => {
                         results = res
-                        const batchParams = {
-                            notificationTable: []
-                        }
-                        notifiedUsers.Items.forEach((user) => {
-                            batchParams[notificationTable].append({
-                                PutRequest: {
-                                    Item: {
-                                        'blueTag': user.blueTag,
-                                        'date': today,
-                                        'message': message
-                                    }
+
+                        var userCount = 0
+                        var batchParamList = []
+                        while (userCount < notifiedUsers.Items.length) {
+                            const batchParams = {
+                                RequestItems: {
+                                    [notificationTable]: []
                                 }
-                            })
+                            }
+                            for (let batchSize = 0; batchSize < 25 && userCount < notifiedUsers.Items.length; batchSize++) {
+                                const notifiedUser = notifiedUsers.Items.at(userCount)
+                                batchParams.RequestItems[notificationTable].push({
+                                    PutRequest: {
+                                        Item: {
+                                            "blueTag": notifiedUser.blueTag,
+                                            "date#message": today.toISOString().concat("#", message),
+                                            "date": today.toISOString().split('T')[0],
+                                            "message": message,
+                                            "createdAt": today.toISOString(),
+                                            "updatedAt": today.toISOString()
+                                        }
+                                    }
+                                })
+                                userCount++
+                            }
+                            batchParamList.push(batchParams)
+                        }
+                        console.log(batchParamList)
+
+                        const batchPromises = batchParamList.map((batchParams) => {
+                            return docClient.batchWrite(batchParams).promise()
                         })
-                        return docClient.batchWrite(batchParams).promise()
+
+                        return Promise.all(batchPromises)
                     })
                     .then(response => resolve({results, response}))
                     .catch(err => reject(err))
