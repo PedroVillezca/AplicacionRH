@@ -63,9 +63,9 @@ exports.handler = async () => {
             .filter(user => user.sendNotifications)
             .map((user) => {
                 // Send notification for this user's bday to SNS
-                const message = "From everyone on Blue People we wish " + 
+                const message = "¡De parte de todos en Blue People le deseamos a " + 
                                 `${user.firstName} ${user.lastName} (${user.blueTag}) ` +
-                                "a happy birthday"
+                                "un muy feliz cumpleaños!"
                 return new Promise((resolve, reject) => {
                     let results;
 
