@@ -39,6 +39,8 @@ export default defineComponent({
     margin-left: 20px;
     margin-bottom: 10px;
     margin-top: 10px;
+    /*height: 90px;
+    width: 150px;*/
 }
 .so_btn{
     color: white;

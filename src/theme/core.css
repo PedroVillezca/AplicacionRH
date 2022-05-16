@@ -41,7 +41,7 @@ ion-header{
 }
 
 ion-footer{
-  background-color: var(--ion-color-secondary);
+  background-color: var(--ion-color-tertiary-contrast);
 }
 
 /*
