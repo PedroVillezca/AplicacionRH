@@ -16,7 +16,7 @@
                 <img
                 class="amplify-image"
                 alt = "Logo BluePeople"
-                src="../assets/bluepeople-logo.svg"
+                src="../assets/bluepeople-logo-white-blue-72.png"
                 />
             </div>
         </template>
@@ -120,3 +120,11 @@ const services = {
     },
   };
 </script>
+<style scoped>
+.amplify-image{
+    height: 120px;
+    width: 210px;
+    margin-top: 12%;
+    margin-bottom:12%;
+}
+</style>

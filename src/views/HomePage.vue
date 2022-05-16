@@ -9,9 +9,12 @@
 
     <div id="ft">
       <ion-footer>
-        <ion-toolbar class="footer">
-          <ion-button class="set_btn" slot="end" router-link="/configuration">
-              Configuraciones
+        <ion-toolbar class="footer" color="#000">
+          <ion-button class="notif_btn" slot="start" fill="clear">
+              <ion-icon name="notifications" class="notIcon"> </ion-icon>
+          </ion-button>
+          <ion-button class="set_btn" slot="end" fill="clear" router-link="/configuration">
+              <ion-icon name="settings" class="setIcon"> </ion-icon>
           </ion-button>
         </ion-toolbar>
       </ion-footer>
@@ -48,7 +51,7 @@ export default defineComponent({
   async created() {
     var userCognito = await Auth.currentAuthenticatedUser()
     var userDynamo: any = await API.graphql({query: getUser, variables: {blueTag: userCognito.username}})
-
+    console.log(JSON.stringify(userDynamo))
     this.firstName = userDynamo.data.getUser.firstName
   }
 });
@@ -65,7 +68,7 @@ ion-content{
   position: absolute;
   left: 0;
   right: 0;
-  top: 25%;
+  top: 20%;
   transform: translateY(-50%);
   display: flexbox;
   flex-direction: column;
@@ -73,7 +76,10 @@ ion-content{
 #welcome-text {
   color:black;
   margin-top: 0px;
-  margin-right: 80%;
+  /*margin-right: 80%;*/
+  width: 100%;
+  text-align: left;
+  text-indent: 15px;
 }
 #container strong {
   font-size: 20px;
@@ -95,6 +101,17 @@ ion-content{
 }
 
 .set_btn{
-  margin-right: 20px;
+  margin-right: 5px;
+  color:white;
+}
+.setIcon{
+  color: rgb(255, 255, 255);
+}
+.notif_btn{
+  margin-left: 5px;
+  color:white;
+}
+.notIcon{
+  color: rgb(255, 255, 255);
 }
 </style>
