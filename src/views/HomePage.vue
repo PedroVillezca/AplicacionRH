@@ -10,7 +10,7 @@
     <div id="ft">
       <ion-footer>
         <ion-toolbar class="footer" color="#000">
-          <ion-button class="notif_btn" slot="start" fill="clear">
+          <ion-button class="notif_btn" slot="start" fill="clear" router-link="/notifications">
               <ion-icon name="notifications" class="notIcon"> </ion-icon>
           </ion-button>
           <ion-button class="set_btn" slot="end" fill="clear" router-link="/configuration">
@@ -27,7 +27,7 @@
 import { IonContent, IonPage, IonFooter, IonButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Auth, API } from 'aws-amplify';
-import { getUser, listNotifications } from '../graphql/queries'
+import { getUser } from '../graphql/queries'
 
 export default defineComponent({
   name: 'HomePage',
@@ -39,8 +39,7 @@ export default defineComponent({
   },
   data () {
     return {
-      firstName: "",
-      blueTag: ""
+      firstName: ""
     }
   },
   methods: {
@@ -52,13 +51,7 @@ export default defineComponent({
   async created() {
     var userCognito = await Auth.currentAuthenticatedUser()
     var userDynamo: any = await API.graphql({query: getUser, variables: {blueTag: userCognito.username}})
-    console.log(JSON.stringify(userDynamo))
     this.firstName = userDynamo.data.getUser.firstName
-    this.blueTag = userDynamo.data.getUser.blueTag
-
-    var notifications: any = await API.graphql({query: listNotifications, variables: {blueTag: this.blueTag}})
-    console.log(notifications)
-
   }
 });
 
