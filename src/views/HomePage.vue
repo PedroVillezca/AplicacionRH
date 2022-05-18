@@ -5,6 +5,9 @@
       <div id="container">
         <h1 id="welcome-text"> Hola, {{this.firstName}}! </h1>
       </div>
+      <ion-button class="so_btn" fill="clear" slot="end"  @click="signOut">
+                <ion-icon name="log-out-outline" color="white"> </ion-icon>
+      </ion-button>
     </ion-content>
 
     <div id="ft">
