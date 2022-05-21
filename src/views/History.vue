@@ -9,7 +9,6 @@
           Historial
         </div>
 
-        <p>TEEEEEXTTT</p>
         <div v-bind:key="notification.blueTag" v-for="notification in notifications">
           <notification-item v-bind:notificationData="notification" />
         </div>
@@ -23,7 +22,7 @@ import { Auth, API } from 'aws-amplify';
 import { IonContent, IonPage } from '@ionic/vue';
 import { getUser } from '../graphql/queries'
 import { listNotifications } from '../graphql/queries'
-import { NotificationItem } from '../components/NotificationItem.vue'
+import NotificationItem from '../components/NotificationItem.vue'
 
 export default {
   name: 'NotificationPage',
@@ -50,13 +49,9 @@ export default {
     }
   },
   async created() {
-    console.log("ENTER CREATED")
     var userDynamo = await this.getDynamoUser()
-    console.log("AFTER DYNAMO USER")
     this.blueTag = userDynamo.blueTag
     this.notifications = await this.getNotifications(this.blueTag)
-    console.log("AFTER NOTIFICATIONS")
-    console.log(this.notifications)
   }
 }
 </script>

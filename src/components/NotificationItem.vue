@@ -1,6 +1,8 @@
 <template>
   <div>
-    <p>template</p>
+    <p>{{this.notificationData.blueTag}}</p>
+    <p>{{this.notificationData.date}}</p>
+    <p>{{this.notificationData.message}}</p>
   </div>
 </template>
 
@@ -9,26 +11,7 @@
 
 export default {
   name: 'NotificationItem',
-  components: {
-
-  },
-  data() {
-    return {
-      blueTag: "",
-      date: "",
-      message: ""
-    }
-  },
-  props: ["notificationData"],
-  created() {
-    console.log("I CAME IN")
-    this.getNotificationData()
-  },
-  methods: {
-    getNotificationData() {
-      console.log(this.notificationData)
-    }
-  }
+  props: ["notificationData"]
 }
 </script>
 
