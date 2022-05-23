@@ -3,7 +3,7 @@
     
     <ion-content :scroll-events="true">
       <div id="container">
-        <h1 id="welcome-text"> Hola, {{this.firstName}}! </h1>
+        <h1 id="welcome-text"> {{this.welcomeText}} </h1>
       </div>
     </ion-content>
 
@@ -40,7 +40,8 @@ export default defineComponent({
   data () {
     return {
       firstName: "",
-      blueTag: ""
+      blueTag: "",
+      welcomeText: ""
     }
   },
   methods: {
@@ -52,9 +53,17 @@ export default defineComponent({
   async created() {
     var userCognito = await Auth.currentAuthenticatedUser()
     var userDynamo: any = await API.graphql({query: getUser, variables: {blueTag: userCognito.username}})
-    console.log(JSON.stringify(userDynamo))
-    this.firstName = userDynamo.data.getUser.firstName
-    this.blueTag = userDynamo.data.getUser.blueTag
+    const user = userDynamo.data.getUser
+    this.firstName = user.firstName
+    this.blueTag = user.blueTag
+
+    const today = new Date()
+    if (user.birthDay == today.getDate() && user.birthMonth == today.getMonth() + 1) {
+      this.welcomeText = "¡Felicidades, " + user.firstName + "!"
+      // Activar efecto de confeti
+    } else {
+      this.welcomeText = "Hola, " + user.firstName
+    }
 
     var notifications: any = await API.graphql({query: listNotifications, variables: {blueTag: this.blueTag}})
     console.log(notifications)
