@@ -8,6 +8,7 @@ import { Storage } from '@capacitor/storage';
 import { getUser } from '../graphql/queries'
 import { Auth, API } from 'aws-amplify';
 import { toastController } from '@ionic/vue';
+import router from '../router'
 
 AWS.config.update({region: 'us-east-1', accessKeyId, secretAccessKey })
 const SNS = new AWS.SNS({apiVersion: '2010-03-31'});
@@ -107,7 +108,15 @@ const notificationInitialSetup = () => {
           position: 'top',
           header: notification.title ?? undefined,
           message: notification.body ?? undefined,
-          duration: 5000
+          duration: 5000,
+          buttons: [
+            {
+              icon: 'mail-open',
+              text: 'Open',
+              handler: () => router.push('/notifications')
+            }
+          ],
+          cssClass: 'toast-open',
         })
       await toast.present()
     }
@@ -117,6 +126,7 @@ const notificationInitialSetup = () => {
   PushNotifications.addListener('pushNotificationActionPerformed',
     (notification) => {
       console.log('Push action performed: ' + JSON.stringify(notification));
+      router.push('/notifications')
     }
   );
 }
