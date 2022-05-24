@@ -100,17 +100,16 @@ const notificationInitialSetup = () => {
 
   // Show us the notification payload if the app is open on our device
   PushNotifications.addListener('pushNotificationReceived',
-    (notification) => {
+    async (notification) => {
       console.log('Push received: ' + JSON.stringify(notification));
-      toastController
+      const toast = await toastController
         .create({
           position: 'top',
           header: notification.title ?? undefined,
           message: notification.body ?? undefined,
           duration: 5000
         })
-        .then(toast => toast.present())
-
+      await toast.present()
     }
   );
 
