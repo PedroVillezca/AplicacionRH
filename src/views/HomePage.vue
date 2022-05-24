@@ -4,11 +4,12 @@
     <ion-content :scroll-events="true">
       <div id="container">
         <h1 id="welcome-text" > Hola, {{this.firstName}}! </h1>
-        <div class="party-div">
-          <ion-button id="party" @click="confetti"> Start</ion-button>
+        <div class="party-div"> 
+          <ion-button id="party" @click="hide" color="#4285F4"> Party</ion-button>
+          <ion-button id="stop" @click="confetti" color="#4285F4"> Stop</ion-button>
         </div>
-        <canvas id="my-canvas"></canvas>
       </div>
+      <canvas id="my-canvas"></canvas>
     </ion-content>
 
     <div id="ft">
@@ -55,9 +56,18 @@ export default defineComponent({
     },
     confetti: async () =>{
       var confettiElement = document.getElementById('my-canvas');
+      var hidden = confettiElement.getAttribute("hidden");
       var confettiSettings = { target: confettiElement };
       var confetti = new ConfettiGenerator(confettiSettings);
       confetti.render();
+      confettiElement.setAttribute("hidden", "hidden");
+    },
+    hide: async () => {
+      var canvas = document.getElementById('my-canvas');
+      var hidden = canvas.getAttribute("hidden");
+      if (hidden) {
+       canvas.removeAttribute("hidden");
+      }
     }
   },
   async created() {
@@ -80,7 +90,7 @@ ion-content{
   position: absolute;
   left: 0;
   right: 0;
-  top: 30%;
+  top: 20%;
   transform: translateY(-50%);
   display: flexbox;
   flex-direction: column;
@@ -126,8 +136,10 @@ ion-content{
 .notIcon{
   color: rgb(255, 255, 255);
 }
-#party{
+#party, #stop{
   color: #ffff;
+  font-family: 'Montserrat';
+  background-color: #4285F4;
 }
 #my-canvas{
   top: 50%;
