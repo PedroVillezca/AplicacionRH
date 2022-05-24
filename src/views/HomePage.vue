@@ -3,11 +3,12 @@
     
     <ion-content :scroll-events="true">
       <div id="container">
-        <h1 id="welcome-text"> Hola, {{this.firstName}}! </h1>
+        <h1 id="welcome-text" > Hola, {{this.firstName}}! </h1>
+        <div class="party-div">
+          <ion-button id="party" @click="confetti"> Start</ion-button>
+        </div>
+        <canvas id="my-canvas"></canvas>
       </div>
-      <ion-button class="so_btn" fill="clear" slot="end"  @click="signOut">
-                <ion-icon name="log-out-outline" color="white"> </ion-icon>
-      </ion-button>
     </ion-content>
 
     <div id="ft">
@@ -30,7 +31,8 @@
 import { IonContent, IonPage, IonFooter, IonButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Auth, API } from 'aws-amplify';
-import { getUser } from '../graphql/queries'
+import { getUser } from '../graphql/queries';
+import ConfettiGenerator from "../confetti-js-master/src/confetti.js";
 
 export default defineComponent({
   name: 'HomePage',
@@ -44,11 +46,18 @@ export default defineComponent({
     return {
       firstName: "",
     }
+  
   },
   methods: {
     getAuthenticatedUser: async () => {
       var user = await Auth.currentAuthenticatedUser()
       return {username: user.username, attributes: user.attributes}
+    },
+    confetti: async () =>{
+      var confettiElement = document.getElementById('my-canvas');
+      var confettiSettings = { target: confettiElement };
+      var confetti = new ConfettiGenerator(confettiSettings);
+      confetti.render();
     }
   },
   async created() {
@@ -71,7 +80,7 @@ ion-content{
   position: absolute;
   left: 0;
   right: 0;
-  top: 20%;
+  top: 30%;
   transform: translateY(-50%);
   display: flexbox;
   flex-direction: column;
@@ -116,5 +125,11 @@ ion-content{
 }
 .notIcon{
   color: rgb(255, 255, 255);
+}
+#party{
+  color: #ffff;
+}
+#my-canvas{
+  top: 50%;
 }
 </style>
