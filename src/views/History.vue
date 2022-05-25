@@ -2,9 +2,9 @@
   <ion-page>
     <ion-content :scroll-events="true">
       <div id="container">
-        <div id="conf-title">
-          <ion-button @click="$router.go(-1)">
-            <ion-icon name="arrow-back"></ion-icon>
+        <div id="history-title">
+          <ion-button @click="$router.go(-1)" class="set_btn">
+            <ion-icon class="setIcon" name="arrow-back"></ion-icon>
           </ion-button>
           Historial
         </div>
@@ -56,12 +56,25 @@ export default {
 }
 </script>
 
-<style>
-#conf-title {
+<style scoped>
+
+ion-content{
+  --background: var(--ion-color-tertiary);
+
+}
+.set_btn{
+  margin-right: 5px;
+  color:white;
+}
+.setIcon{
+  color: rgb(255, 255, 255);
+}
+#history-title {
   display: flex;
   align-content: center;
   align-items: center;
   margin-top: 10px;
+  margin-bottom: 30px;
   font-size: 50px;
 }
 
@@ -70,6 +83,7 @@ export default {
   left: 20px;
   right: 0;
   top: 20%;
+
   /* transform: translateY(-50%); */
 }
 
