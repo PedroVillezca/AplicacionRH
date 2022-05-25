@@ -128,9 +128,10 @@ const services = {
     margin-bottom:12%;
 }
 
-#authenticator {
-    --container-height: 100%;
-}
+#authenticator[data-amplify-authenticator] [data-amplify-container] {
+    width: var(--amplify-components-authenticator-container-width-max);
+    
+  }
 
 
 </style>

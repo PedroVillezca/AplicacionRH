@@ -9,7 +9,7 @@
           </ion-button>
           Configuración
         </div>
-        <ion-item class="line"></ion-item>
+        <hr class="line">
         <!-- <div id="personal-info"> -->
           <!-- NOMBES, APELLIDOS Y FECHA DE NACIMIENTO -->
           <h1>Información Personal</h1>
@@ -141,12 +141,16 @@ ion-content{
 .setIcon{
   color: rgb(255, 255, 255);
 }
+
 .line{
-  border: 0;
-  height: 5px;
+  /* border: 2px solid #25305F; */
+  background-color: #25305F;
+  color:#25305F;
+  border-radius: 25px;
+  height: 4px;
   margin-left: 0px;
   margin-right: 5%;
-  margin-bottom: 40px;
+
 }
 #names {
   display: flex;
@@ -181,6 +185,7 @@ ion-content{
   display: flex;
   margin-left: 5%;
   margin-right: 15%;
+  margin-top: 20px;
   align-items: center;
   justify-content: space-between;
 }
@@ -203,7 +208,7 @@ ion-input {
   position: absolute;
   left: 20px;
   right: 0;
-  top: 20%;
+  margin-top: 30%;
   color: black;
   /* transform: translateY(-50%); */
 }
