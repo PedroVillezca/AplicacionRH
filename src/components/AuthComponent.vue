@@ -1,6 +1,6 @@
 <template>
     <ion-content :scroll-events="true">
-    <authenticator 
+    <authenticator id="authenticator"
         :login-mechanisms="['username']"
         :sign-up-attributes="[
         'username',
@@ -127,4 +127,10 @@ const services = {
     margin-top: 12%;
     margin-bottom:12%;
 }
+
+#authenticator {
+    --container-height: 100%;
+}
+
+
 </style>

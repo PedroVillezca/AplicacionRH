@@ -4,26 +4,30 @@
       <div id="container">
         <div id="conf-title">
           <ion-button @click="$router.go(-1)">
-            <ion-icon name="arrow-back"></ion-icon>
+            <ion-icon name="arrow-back" class="setIcon"></ion-icon>
+            <!-- <ion-icon name="settings" class="setIcon"> </ion-icon> -->
           </ion-button>
           Configuración
         </div>
         <ion-item class="line"></ion-item>
-        <div id="personal-info">
+        <!-- <div id="personal-info"> -->
           <!-- NOMBES, APELLIDOS Y FECHA DE NACIMIENTO -->
           <h1>Información Personal</h1>
-          <ion-text>
-            <h4>Nombre(s):</h4>
-          <ion-input v-model="name" placeholder="Nombre"></ion-input>
-          <h4>Apellidos:</h4>
-          <ion-input v-model="lastname" placeholder="Apellidos"></ion-input>
-          <h4>Fecha de nacimiento:</h4>
+          <div id="personal-info">
+          <!-- <ion-text> -->
+            <div id="names">
+              <h4>Nombre(s):</h4>
+              <ion-input v-model="name" placeholder="Nombre" maxlength="30"></ion-input>
+              <h4>Apellidos:</h4>
+              <ion-input v-model="lastname" placeholder="Apellidos" maxlength="30"></ion-input>
+              <h4>Fecha de nacimiento:</h4> 
+            </div>
           <div id="birthdate">
-          <ion-input v-model="day" placeholder="DD" type="text" maxlength="2"></ion-input>/
-          <ion-input v-model="month" placeholder="MM" type="text" maxlength="2"></ion-input>/
-          <ion-input v-model="year" placeholder="YYYY" type="text" maxlength="4"></ion-input>
+            <ion-input v-model="day" placeholder="DD" type="text" maxlength="2" inputmode="numeric"></ion-input>/
+            <ion-input v-model="month" placeholder="MM" type="text" maxlength="2" inputmode="numeric"></ion-input>/
+            <ion-input v-model="year" placeholder="YYYY" type="text" maxlength="4" inputmode="numeric"></ion-input>
           </div>
-          </ion-text>
+          <!-- </ion-text> -->
           
         </div>
         <!-- PREFERENCIAS -->
@@ -131,6 +135,12 @@ export default defineComponent({
 
 <style scoped>
 
+ion-content{
+  --background: var(--ion-color-tertiary);
+}
+.setIcon{
+  color: rgb(255, 255, 255);
+}
 .line{
   border: 0;
   height: 5px;
@@ -138,10 +148,17 @@ export default defineComponent({
   margin-right: 5%;
   margin-bottom: 40px;
 }
+#names {
+  display: flex;
+  flex-direction: column;
+  /* margin-left: 3%; */
+  
+}
 #birthdate{
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
 }
 #calendario{
   margin-top: 5%;
@@ -154,6 +171,7 @@ export default defineComponent({
   margin-right: 30%;
   display: flex;
   justify-content: center;
+  color: white;
 }
 #preferences {
   margin-top: 70px;
@@ -170,16 +188,14 @@ export default defineComponent({
   display: flex;
   align-content: center;
   align-items: center;
-  margin-top: 10px;
-  font-size: 50px;
+  margin-top: 8px;
+  font-size: 9vw;
 }
 
 
-#personal-info h4 {
-    margin-left: 20px;
-}
+
 ion-input {
-  margin-left: 20px;
+  /* margin-left: 20px; */
   font-family: 'Montserrat';
 
 }
@@ -188,6 +204,7 @@ ion-input {
   left: 20px;
   right: 0;
   top: 20%;
+  color: black;
   /* transform: translateY(-50%); */
 }
 

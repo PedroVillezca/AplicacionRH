@@ -18,6 +18,7 @@ ion-text{
   font-family: 'Montserrat';
 }
 
+
 ion-content{
   --background: var(--ion-color-secondary);
   font-family: 'Montserrat';
