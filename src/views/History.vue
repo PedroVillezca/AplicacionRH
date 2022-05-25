@@ -8,7 +8,7 @@
           </ion-button>
           Historial
         </div>
-
+        <hr class="line">
         <div v-bind:key="notification.blueTag" v-for="notification in notifications">
           <notification-item v-bind:notificationData="notification" />
         </div>
@@ -62,6 +62,15 @@ ion-content{
   --background: var(--ion-color-tertiary);
 
 }
+.line{
+  background-color: #25305F;
+  color:#25305F;
+  border-radius: 25px;
+  height: 4px;
+  margin-left: 0px;
+  margin-right: 5%;
+  margin-bottom: 30px;
+}
 .set_btn{
   margin-right: 5px;
   color:white;
@@ -74,7 +83,6 @@ ion-content{
   align-content: center;
   align-items: center;
   margin-top: 10px;
-  margin-bottom: 30px;
   font-size: 50px;
 }
 
@@ -82,7 +90,7 @@ ion-content{
   position: absolute;
   left: 20px;
   right: 0;
-  top: 20%;
+  margin-top: 30%;
 
   /* transform: translateY(-50%); */
 }
