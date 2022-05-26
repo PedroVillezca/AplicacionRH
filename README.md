@@ -8,10 +8,10 @@ Aplicación desarrollada para BluePeople que alerta a los usuarios sobre los cum
 * Contar con una cuenta IAM de AWS generada por BluePeople
 * Tener los siguientes permisos de AWS y Amplify: ???
 * Clonar el repositorio
-* Instalar Node [(lonk)]()
-* Instalar Amplify CLI [(lonk)]()
+* Instalar [Node](https://nodejs.org/en/)
+* Instalar [Amplify CLI](https://docs.amplify.aws/cli/start/install/)
 * Correr ```amplify configure``` y seguir los pasos
-* Instalar Android Studio con por lo menos Android SDK 32 [(lonk)]()
+* Instalar [Android Studio con por lo menos Android SDK 32](https://developer.android.com/studio)
 
 ### Contribuir
 1. Correr ```npm i``` para instalar los módulos necesarios
