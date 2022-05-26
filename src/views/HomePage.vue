@@ -13,7 +13,7 @@
     <div id="ft">
       <ion-footer>
         <ion-toolbar class="footer" color="#000">
-          <ion-button class="notif_btn" slot="start" fill="clear">
+          <ion-button class="notif_btn" slot="start" fill="clear" router-link="/notifications">
               <ion-icon name="notifications" class="notIcon"> </ion-icon>
           </ion-button>
           <ion-button class="set_btn" slot="end" fill="clear" router-link="/configuration">

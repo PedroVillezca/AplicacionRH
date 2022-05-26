@@ -4,6 +4,7 @@ http://ionicframework.com/docs/theming/ */
 /** Ionic CSS Variables **/
 :root {
   --ion-item-background: white;
+  --amplify-colors-background-info: var(--amplify-colors-blue-20);
   /** primary azul rey Bluepeople: **/
   --ion-color-primary: #25305F;
   --ion-color-primary-rgb: 56, 128, 255;
