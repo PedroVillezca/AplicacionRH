@@ -1,15 +1,13 @@
 <template>
   <ion-page>
-    
     <ion-content :scroll-events="true">
       <div id="container">
         <h1 id="welcome-text" > Hola, {{this.firstName}}! </h1>
         <div class="party-div"> 
-          <ion-button id="party" @click="confettiShoot" color="#4285F4"> Party</ion-button>
-          <ion-button id="stop"  color="#4285F4"> Stop</ion-button>
+          <ion-button id="party" @click="shoot=!shoot"> Party</ion-button>
         </div>
       </div>
-      <canvas id="my-canvas"></canvas>
+      <canvas id="my-canvas" v-show="shoot"></canvas>
     </ion-content>
 
     <div id="ft">
@@ -34,6 +32,7 @@ import { defineComponent } from 'vue';
 import { Auth, API } from 'aws-amplify';
 import { getUser } from '../graphql/queries';
 import ConfettiGenerator from "../confetti-js-master/src/confetti.js";
+import { bool } from 'aws-sdk/clients/signer';
 
 export default defineComponent({
   name: 'HomePage',
@@ -47,7 +46,8 @@ export default defineComponent({
     return {
       firstName: "",
       confetti: null,
-      canvas: null
+      canvas: null,
+      shoot: false,
     }
   
   },
@@ -56,11 +56,8 @@ export default defineComponent({
       var user = await Auth.currentAuthenticatedUser()
       return {username: user.username, attributes: user.attributes}
     },
-    confettiShoot: async () =>{
-      var confettiElement = document.getElementById('my-canvas');
-      var confettiSettings = { target: confettiElement };
-      var confetti = new (ConfettiGenerator as any)(confettiSettings)
-      confetti.render()
+    confettiShoot: (shoot:bool) =>{
+      shoot = !shoot;
     }
   },
   async created() {
@@ -68,6 +65,10 @@ export default defineComponent({
     var userDynamo: any = await API.graphql({query: getUser, variables: {blueTag: userCognito.username}})
     console.log(JSON.stringify(userDynamo))
     this.firstName = userDynamo.data.getUser.firstName
+    const confettiElement = document.getElementById('my-canvas');
+    const confettiSettings = { target: confettiElement };
+    const confetti = new (ConfettiGenerator as any)(confettiSettings)
+    confetti.render();
   }
 });
 
