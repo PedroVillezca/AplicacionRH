@@ -2,12 +2,12 @@
   <ion-page>
     <ion-content :scroll-events="true">
       <div id="container">
-        <h1 id="welcome-text" > Hola, {{this.firstName}}! </h1>
-        <div class="party-div"> 
-          <ion-button id="party" @click="shoot=!shoot"> Party</ion-button>
+        <h1 id="welcome-text" > {{this.message}} </h1>
+        <div> 
+          <ion-button id="party" @click="showConfetti=!showConfetti"> {{this.showConfetti? "Stop Party":"Party"}}</ion-button>
         </div>
       </div>
-      <canvas id="my-canvas" v-show="shoot"></canvas>
+      <canvas id="my-canvas" v-show="showConfetti"></canvas>
     </ion-content>
 
     <div id="ft">
@@ -31,8 +31,7 @@ import { IonContent, IonPage, IonFooter, IonButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Auth, API } from 'aws-amplify';
 import { getUser } from '../graphql/queries';
-import ConfettiGenerator from "../confetti-js-master/src/confetti.js";
-import { bool } from 'aws-sdk/clients/signer';
+import ConfettiGenerator from 'confetti-js';
 
 export default defineComponent({
   name: 'HomePage',
@@ -44,10 +43,9 @@ export default defineComponent({
   },
   data () {
     return {
-      firstName: "",
-      confetti: null,
-      canvas: null,
-      shoot: false,
+      message: "",
+      showConfetti: false,
+      isBirthday: false,
     }
   
   },
@@ -56,15 +54,21 @@ export default defineComponent({
       var user = await Auth.currentAuthenticatedUser()
       return {username: user.username, attributes: user.attributes}
     },
-    confettiShoot: (shoot:bool) =>{
-      shoot = !shoot;
-    }
   },
   async created() {
     var userCognito = await Auth.currentAuthenticatedUser()
     var userDynamo: any = await API.graphql({query: getUser, variables: {blueTag: userCognito.username}})
     console.log(JSON.stringify(userDynamo))
-    this.firstName = userDynamo.data.getUser.firstName
+    const firstName = userDynamo.data.getUser.firstName
+    const today = new Date()
+    const birthDay = userDynamo.data.getUser.birthDay
+    const birthMonth = userDynamo.data.getUser.birthMonth
+    if((today.getDate()) == birthDay && (today.getMonth()+1) == birthMonth) {
+      this.showConfetti = true
+      this.message = `Feliz cumpleaños ${firstName}!`
+    } else {
+      this.message = `Hola ${firstName}!`
+    }
     const confettiElement = document.getElementById('my-canvas');
     const confettiSettings = { target: confettiElement };
     const confetti = new (ConfettiGenerator as any)(confettiSettings)
@@ -94,7 +98,7 @@ ion-content{
   margin-top: 0px;
   /*margin-right: 80%;*/
   width: 100%;
-  text-align: left;
+  text-align: center;
   text-indent: 15px;
 }
 #container strong {
