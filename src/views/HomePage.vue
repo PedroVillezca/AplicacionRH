@@ -1,10 +1,13 @@
 <template>
   <ion-page>
-    
     <ion-content :scroll-events="true">
       <div id="container">
-        <h1 id="welcome-text"> Hola, {{this.firstName}}! </h1>
+        <h1 id="welcome-text" > {{this.message}} </h1>
+        <div> 
+          <ion-button id="party" @click="showConfetti=!showConfetti"> {{this.showConfetti? "Stop Party":"Party"}}</ion-button>
+        </div>
       </div>
+      <canvas id="my-canvas" v-show="showConfetti"></canvas>
     </ion-content>
 
     <div id="ft">
@@ -27,7 +30,8 @@
 import { IonContent, IonPage, IonFooter, IonButton} from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { Auth, API } from 'aws-amplify';
-import { getUser } from '../graphql/queries'
+import { getUser } from '../graphql/queries';
+import ConfettiGenerator from 'confetti-js';
 
 export default defineComponent({
   name: 'HomePage',
@@ -39,19 +43,36 @@ export default defineComponent({
   },
   data () {
     return {
-      firstName: ""
+      message: "",
+      showConfetti: false,
+      isBirthday: false,
     }
+  
   },
   methods: {
     getAuthenticatedUser: async () => {
       var user = await Auth.currentAuthenticatedUser()
       return {username: user.username, attributes: user.attributes}
-    }
+    },
   },
   async created() {
     var userCognito = await Auth.currentAuthenticatedUser()
     var userDynamo: any = await API.graphql({query: getUser, variables: {blueTag: userCognito.username}})
-    this.firstName = userDynamo.data.getUser.firstName
+    console.log(JSON.stringify(userDynamo))
+    const firstName = userDynamo.data.getUser.firstName
+    const today = new Date()
+    const birthDay = userDynamo.data.getUser.birthDay
+    const birthMonth = userDynamo.data.getUser.birthMonth
+    if((today.getDate()) == birthDay && (today.getMonth()+1) == birthMonth) {
+      this.showConfetti = true
+      this.message = `Feliz cumpleaños ${firstName}!`
+    } else {
+      this.message = `Hola ${firstName}!`
+    }
+    const confettiElement = document.getElementById('my-canvas');
+    const confettiSettings = { target: confettiElement };
+    const confetti = new (ConfettiGenerator as any)(confettiSettings)
+    confetti.render();
   }
 });
 
@@ -77,7 +98,7 @@ ion-content{
   margin-top: 0px;
   /*margin-right: 80%;*/
   width: 100%;
-  text-align: left;
+  text-align: center;
   text-indent: 15px;
 }
 #container strong {
@@ -112,5 +133,13 @@ ion-content{
 }
 .notIcon{
   color: rgb(255, 255, 255);
+}
+#party, #stop{
+  color: #ffff;
+  font-family: 'Montserrat';
+  background-color: #4285F4;
+}
+#my-canvas{
+  top: 50%;
 }
 </style>
