@@ -180,6 +180,9 @@ ion-content{
 #preferences {
   margin-top: 70px;
 }
+.pref-options {
+  margin-top: 70px;
+}
 
 .pref-options{
   display: flex;
