@@ -84,6 +84,7 @@ ion-content{
   align-items: center;
   margin-top: 10px;
   font-size: 50px;
+  color: black;
 }
 
 #container {
