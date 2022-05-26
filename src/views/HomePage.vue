@@ -4,7 +4,7 @@
       <div id="container">
         <h1 id="welcome-text" > {{this.message}} </h1>
         <div> 
-          <ion-button id="party" @click="showConfetti=!showConfetti"> {{this.showConfetti? "Stop Party":"Party"}}</ion-button>
+          <ion-button v-if="this.showButton" id="party" @click="showConfetti=!showConfetti"> {{this.showConfetti? "Stop Party":"Party"}}</ion-button>
         </div>
       </div>
       <canvas id="my-canvas" v-show="showConfetti"></canvas>
@@ -46,6 +46,7 @@ export default defineComponent({
       message: "",
       showConfetti: false,
       isBirthday: false,
+      showButton: false
     }
   
   },
@@ -65,6 +66,7 @@ export default defineComponent({
     const birthMonth = userDynamo.data.getUser.birthMonth
     if((today.getDate()) == birthDay && (today.getMonth()+1) == birthMonth) {
       this.showConfetti = true
+      this.showButton = true
       this.message = `Feliz cumpleaños ${firstName}!`
     } else {
       this.message = `Hola ${firstName}!`
