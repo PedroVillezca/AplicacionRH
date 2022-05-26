@@ -7,6 +7,8 @@ import { Hub } from 'aws-amplify';
 import { Storage } from '@capacitor/storage';
 import { getUser } from '../graphql/queries'
 import { Auth, API } from 'aws-amplify';
+import { toastController } from '@ionic/vue';
+import router from '../router'
 
 AWS.config.update({region: 'us-east-1', accessKeyId, secretAccessKey })
 const SNS = new AWS.SNS({apiVersion: '2010-03-31'});
@@ -85,7 +87,7 @@ const notificationInitialSetup = () => {
           console.log('Subscribed successfully to employee topic: ' + subArn)
         })
         .catch(err => {
-          console.log('Error on initial notifications setup: ' + err);
+          console.log('Error on initial notifications setup: ' + JSON.stringify(err));
         })
     }
   )
@@ -99,8 +101,24 @@ const notificationInitialSetup = () => {
 
   // Show us the notification payload if the app is open on our device
   PushNotifications.addListener('pushNotificationReceived',
-    (notification) => {
+    async (notification) => {
       console.log('Push received: ' + JSON.stringify(notification));
+      const toast = await toastController
+        .create({
+          position: 'top',
+          header: notification.title ?? undefined,
+          message: notification.body ?? undefined,
+          duration: 5000,
+          buttons: [
+            {
+              icon: 'mail-open',
+              text: 'Open',
+              handler: () => router.push('/notifications')
+            }
+          ],
+          cssClass: 'toast-open',
+        })
+      await toast.present()
     }
   );
 
@@ -108,6 +126,7 @@ const notificationInitialSetup = () => {
   PushNotifications.addListener('pushNotificationActionPerformed',
     (notification) => {
       console.log('Push action performed: ' + JSON.stringify(notification));
+      router.push('/notifications')
     }
   );
 }
@@ -143,7 +162,7 @@ const setupAuthListeners = () => {
           }).promise()
         })
         .then((data) => {
-          console.log('endpoint disabled', data)
+          console.log('endpoint disabled', JSON.stringify(data))
           return Storage.remove({key: 'endpoint'})
         })
         .then(() => {
