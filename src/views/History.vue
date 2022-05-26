@@ -44,7 +44,7 @@ export default {
       return userDynamo.data.getUser
     },
     getNotifications: async (blueTag) => {
-      var notifications = await API.graphql({query: listNotifications, variables: {blueTag: blueTag}})
+      var notifications = await API.graphql({query: listNotifications, variables: {blueTag: blueTag, limit: 20, sortDirection: "DESC"}})
       return notifications.data.listNotifications.items
     }
   },
