@@ -5,8 +5,8 @@
       <div id="container">
         <h1 id="welcome-text" > Hola, {{this.firstName}}! </h1>
         <div class="party-div"> 
-          <ion-button id="party" @click="hide" color="#4285F4"> Party</ion-button>
-          <ion-button id="stop" @click="confetti" color="#4285F4"> Stop</ion-button>
+          <ion-button id="party" @click="confettiShoot" color="#4285F4"> Party</ion-button>
+          <ion-button id="stop"  color="#4285F4"> Stop</ion-button>
         </div>
       </div>
       <canvas id="my-canvas"></canvas>
@@ -46,6 +46,8 @@ export default defineComponent({
   data () {
     return {
       firstName: "",
+      confetti: null,
+      canvas: null
     }
   
   },
@@ -54,20 +56,11 @@ export default defineComponent({
       var user = await Auth.currentAuthenticatedUser()
       return {username: user.username, attributes: user.attributes}
     },
-    confetti: async () =>{
+    confettiShoot: async () =>{
       var confettiElement = document.getElementById('my-canvas');
-      var hidden = confettiElement.getAttribute("hidden");
       var confettiSettings = { target: confettiElement };
-      var confetti = new ConfettiGenerator(confettiSettings);
-      confetti.render();
-      confettiElement.setAttribute("hidden", "hidden");
-    },
-    hide: async () => {
-      var canvas = document.getElementById('my-canvas');
-      var hidden = canvas.getAttribute("hidden");
-      if (hidden) {
-       canvas.removeAttribute("hidden");
-      }
+      var confetti = new (ConfettiGenerator as any)(confettiSettings)
+      confetti.render()
     }
   },
   async created() {
