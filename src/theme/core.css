@@ -18,6 +18,7 @@ ion-text{
   font-family: 'Montserrat';
 }
 
+
 ion-content{
   --background: var(--ion-color-secondary);
   font-family: 'Montserrat';
@@ -34,6 +35,10 @@ ion-content{
 .amplify-button:hover[data-variation='primary'] {
     background: var(--ion-color-secondary);
     color: var(--ion-color-tertiary);
+  }
+#authenticator[data-amplify-authenticator] [data-amplify-container] {
+    --amplify-components-authenticator-container-width-max: 100%;
+    --amplify-components-authenticator-modal-width: 100%;
   }
 
 ion-header{
