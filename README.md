@@ -15,7 +15,7 @@ Aplicación desarrollada para BluePeople que alerta a los usuarios sobre los cum
 - Instalar [Node](https://nodejs.org/en/)
 - Instalar [Amplify CLI](https://docs.amplify.aws/cli/start/install/)
 - Correr `amplify configure` y seguir los pasos
-- Instalar [Android Studio y crear un virtual device con Android SDK 32 o mayor](https://developer.android.com/studio) ([guia de instalacion](https://ionicframework.com/docs/developing/android#installing-the-android-sdk) de por parte de Ionic)
+- Instalar [Android Studio y crear un virtual device con Android SDK 32 o mayor](https://developer.android.com/studio) ([guia de instalacion](https://ionicframework.com/docs/developing/android#installing-the-android-sdk) por parte de Ionic)
 
 ### Contribuir
 
