@@ -41,3 +41,4 @@ Aplicación desarrollada para BluePeople que alerta a los usuarios sobre los cum
 - Vue - https://vuejs.org/guide/introduction.html
 - AWS Amplify - https://docs.amplify.aws/start/q/integration/vue/
 - AWS SNS Javascript SDK - https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SNS.html
+- Confetti Generator - https://github.com/Agezao/confetti-js
