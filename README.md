@@ -7,7 +7,7 @@ Aplicación desarrollada para BluePeople que alerta a los usuarios sobre los cum
 ### Pre-requisitos
 
 - Contar con una cuenta IAM de AWS generada por BluePeople
-- Tener los siguientes permisos de AWS y Amplify: ???
+- Solicitar a BluePeople los permisos correspondientes a este proyecto
 - Clonar el repositorio:
   ```
   git clone https://github.com/PedroVillezca/AplicacionRH.git
