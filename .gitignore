@@ -30,6 +30,10 @@ npm-debug.log*
 /plugins
 /www
 
+
+
+src/services/sns-config.js
+
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
@@ -50,6 +54,3 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
-
-
-src/services/sns-config.js

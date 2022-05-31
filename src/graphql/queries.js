@@ -50,6 +50,45 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
+export const getNotification = /* GraphQL */ `
+  query GetNotification($blueTag: ID!, $date: AWSDate!, $message: String!) {
+    getNotification(blueTag: $blueTag, date: $date, message: $message) {
+      blueTag
+      date
+      message
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listNotifications = /* GraphQL */ `
+  query ListNotifications(
+    $blueTag: ID
+    $dateMessage: ModelNotificationPrimaryCompositeKeyConditionInput
+    $filter: ModelNotificationFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listNotifications(
+      blueTag: $blueTag
+      dateMessage: $dateMessage
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        blueTag
+        date
+        message
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getUserByEmail = /* GraphQL */ `
   query GetUserByEmail(
     $email: String!

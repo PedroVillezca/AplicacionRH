@@ -52,3 +52,36 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
+export const onCreateNotification = /* GraphQL */ `
+  subscription OnCreateNotification {
+    onCreateNotification {
+      blueTag
+      date
+      message
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateNotification = /* GraphQL */ `
+  subscription OnUpdateNotification {
+    onUpdateNotification {
+      blueTag
+      date
+      message
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteNotification = /* GraphQL */ `
+  subscription OnDeleteNotification {
+    onDeleteNotification {
+      blueTag
+      date
+      message
+      createdAt
+      updatedAt
+    }
+  }
+`;

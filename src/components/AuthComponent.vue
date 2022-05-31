@@ -1,6 +1,6 @@
 <template>
     <ion-content :scroll-events="true">
-    <authenticator 
+    <authenticator id="authenticator"
         :login-mechanisms="['username']"
         :sign-up-attributes="[
         'username',
@@ -16,7 +16,7 @@
                 <img
                 class="amplify-image"
                 alt = "Logo BluePeople"
-                src="../assets/bluepeople-logo.svg"
+                src="../assets/bluepeople-logo-white-blue-72.png"
                 />
             </div>
         </template>
@@ -120,3 +120,19 @@ const services = {
     },
   };
 </script>
+<style scoped>
+.amplify-image{
+    height: 120px;
+    width: 210px;
+    margin-top: 12%;
+    margin-bottom:12%;
+}
+
+/* 
+#authenticator[data-amplify-authenticator] [data-amplify-container] {
+    width: var(--amplify-components-authenticator-container-width-max);
+    
+  } */
+
+
+</style>

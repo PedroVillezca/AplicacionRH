@@ -18,6 +18,7 @@ ion-text{
   font-family: 'Montserrat';
 }
 
+
 ion-content{
   --background: var(--ion-color-secondary);
   font-family: 'Montserrat';
@@ -35,15 +36,27 @@ ion-content{
     background: var(--ion-color-secondary);
     color: var(--ion-color-tertiary);
   }
+#authenticator[data-amplify-authenticator] [data-amplify-container] {
+    --amplify-components-authenticator-container-width-max: 100%;
+    --amplify-components-authenticator-modal-width: 100%;
+  }
 
 ion-header{
-  background-color: var(--ion-color-secondary);
+  background-color: var(--ion-color-primary);
 }
 
 ion-footer{
-  background-color: var(--ion-color-secondary);
+  background-color: var(--ion-color-tertiary-contrast);
 }
 
+.toast-open {
+  --button-color: white;
+}
+
+.toast-open::part(button)::part(icon) {
+  --color: white;
+  padding-right: 5px;
+}
 /*
 .amplify-grid[data-variation='primary'] {
     height: 100%;

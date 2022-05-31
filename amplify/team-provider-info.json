@@ -12,19 +12,18 @@
       "AmplifyAppId": "d2ihi2qrzpdxr6"
     },
     "categories": {
+      "function": {
+        "birthday": {
+          "deploymentBucketName": "amplify-aplicacionrh-dev-173254-deployment",
+          "s3Key": "amplify-builds/birthday-455a334a625375725a4a-build.zip"
+        }
+      },
       "auth": {
-        "aplicacionrh191c30f7": {},
         "aplicacionrha446c587": {
           "userPoolId": "us-east-1_V8d6Dt72j",
           "userPoolName": "aplicacionrh_userpool",
           "webClientId": "1rmjv537ddrknspm2d3h7gh0cs",
           "nativeClientId": "1rmjv537ddrknspm2d3h7gh0cs"
-        }
-      },
-      "function": {
-        "birthday": {
-          "deploymentBucketName": "amplify-aplicacionrh-dev-173254-deployment",
-          "s3Key": "amplify-builds/birthday-6b736573314d77706e53-build.zip"
         }
       }
     }
