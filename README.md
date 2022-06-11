@@ -42,3 +42,8 @@ Aplicación desarrollada para BluePeople que alerta a los usuarios sobre los cum
 - AWS Amplify - https://docs.amplify.aws/start/q/integration/vue/
 - AWS SNS Javascript SDK - https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SNS.html
 - Confetti Generator - https://github.com/Agezao/confetti-js
+
+## Defectos Conocidos
+
+* En la pantalla de registro de la versión Android de la aplicación, el campo de entrada de fecha de nacimiento no se despliega correctamente. Este problema parece estar relacionado al uso de componentes de UI provistos por Amplify en Android. Abrimos un issue en Github para dar seguimiento a este defecto: [https://github.com/aws-amplify/amplify-ui/issues/1958](https://github.com/aws-amplify/amplify-ui/issues/1958)
+* La función lambda que envía notificaciones de cumpleaños no genera registros en el historial de notificaciones de los usuarios cuando es ejecutada automáticamente. Creemos que el problema es que el rol que está ejecutando la función lambda en automático no tiene los permisos necesarios para escribir datos en batch en DynamoDB. Asignarle este permiso utilizando una cuenta de administrador podría resolver el problema.
